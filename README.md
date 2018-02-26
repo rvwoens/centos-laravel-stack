@@ -7,10 +7,21 @@ some helper scripts for installing a centos7 server with
 * Security 
 * Deployment by pushing a git repo
 
+The scripts are all bash, and kept very simple so you can tweak them to your needs.
+
+The git-repo deployment makes it very easy to deploy a git laravel version to the (staging/production) server by calling:
+```
+git push web -f
+or
+git push web <tag|branchname> -f
+```
+and the pushed tag/branch is automatically checked out to you server's path and
+updated (composer update, dump-autoload, artisan migrate, npm update, npm run dev or gulp etc.)
+
 
 ### how to start
 
-* bring up a centos 7 server somewhere (I use linode boxes and Google cloud compute engines)
+* bring up a centos 7 server somewhere
 * ssh as root and run:
 
 ```bash
