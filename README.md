@@ -8,7 +8,7 @@ some helper scripts for installing a centos7 server with
 * Deployment by pushing a git repo
 
 
-###how to start
+### how to start
 
 * bring up a centos 7 server somewhere (I use linode boxes and Google cloud compute engines)
 * ssh as root and run:
