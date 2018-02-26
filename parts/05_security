@@ -41,8 +41,8 @@ firewall-cmd --reload
 firewall-cmd --list-all
 
 logline "05.03 fail2ban"
-yum -y -d1 install fail2ban
-cat <<-'EOF' >>/etc/fail2ban/jail.local
+yum -y install fail2ban
+cat <<-'EOF' >/etc/fail2ban/jail.local
 	[sshd]
 	enabled = true
 	maxretry = 3

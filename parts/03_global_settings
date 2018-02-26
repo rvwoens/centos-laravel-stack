@@ -19,7 +19,7 @@ systemctl enable ntpd
 
 ## yum fortune and cowsay
 logline "03.04 install fortune and cowsay"
-yum -d1 -y install fortune-mod cowsay
+yum -y install fortune-mod cowsay
 echo "fortune | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
 
 logline "03.99 global settings END"
