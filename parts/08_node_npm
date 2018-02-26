@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "08.00 node and npm START"
+curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+yum -y -d1 install nodejs
+
+logline "08.99 node npm END"
+

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "06.00 install EPEL and REMI repos and yum standard packages"
+
+logline "06.01 add repos"
+yum -d1 -y install epel-release
+yum -d1 -y install wget
+wget -q http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+sudo rpm -Uvh remi-release-7*.rpm
+rm -f remi-release-7*.rpm
+yum -q repolist
+
+logline "06.02 update system"
+yum -d1 -y update
+
+logline "06.03 yum some sysop and dev tools"
+yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make
+## optional BIG development install
+## yum groupinstall "Development Tools"
+
+logline "06.99 repos and yums END"
+

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "05.00 security"
+
+logline "05.01 ssh security"
+
+sshtemp=`mktemp`
+cat /etc/ssh/sshd_config | sed -e "s/PasswordAuthentication yes/PasswordAuthentication no/" >$sshtemp
+
+cat <<-'EOF' >>$sshtemp 
+	PermitRootLogin no
+	Protocol 2
+	UsePrivilegeSeparation yes
+	SyslogFacility AUTH
+	LogLevel INFO
+	StrictModes yes
+	PubkeyAuthentication yes
+	IgnoreRhosts yes
+	HostbasedAuthentication no
+	PermitEmptyPasswords no
+	X11Forwarding no
+	GatewayPorts no
+	PrintMotd no
+	TCPKeepAlive yes
+	PasswordAuthentication no
+EOF
+mv -f $sshtemp /etc/ssh/sshd_config
+systemctl restart sshd.service
+
+
+logline "05.02 firewall"
+systemctl enable firewalld
+systemctl start firewalld
+# add port 80 and 443
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload
+# show overview
+firewall-cmd --list-all
+
+logline "05.03 fail2ban"
+yum -y -d1 install fail2ban
+cat <<-'EOF' >>/etc/fail2ban/jail.local
+	[sshd]
+	enabled = true
+	maxretry = 3
+	bantime = 86400
+EOF
+systemctl start fail2ban
+systemctl enable fail2ban
+
+
+logline "05.99 security END"
+

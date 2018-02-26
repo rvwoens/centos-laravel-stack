@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "02.00 set hostname"
+while [ -z "$hostname" ]; do
+        echo -n "Enter a hostname >" && read hostname
+done
+
+## lets name the host
+hostnamectl set-hostname $hostname
+logline "02.99 set hostname END"
+

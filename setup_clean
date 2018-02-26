@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "Centos7 server install -- CLEAN SETUP"
+
+. ./parts/01_user_create
+. ./parts/02_set_hostname
+. ./parts/03_global_settings
+. ./parts/04_root_password
+. ./parts/05_security
+. ./parts/06_repos_yums
+
+echo "You now might want to add from ./parts"
+

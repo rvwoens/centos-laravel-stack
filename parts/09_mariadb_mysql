@@ -1,0 +1,16 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "09.00 mariadb mysql START"
+
+logline "09.01 yum mariadb"
+## yum mariadb and enable
+yum -d1 -y install mariadb-server mariadb
+
+logline "09.02 enable and start"
+systemctl enable mariadb
+service mariadb star
+
+logline "09.99 mariadb END"
+
