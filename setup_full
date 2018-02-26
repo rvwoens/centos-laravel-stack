@@ -8,7 +8,7 @@ echo "Centos7 server install -- FULL SETUP"
 . ./parts/05_security
 . ./parts/06_repos_yums
 . ./parts/07_php71
-. ./parts/08_node_npm1
+. ./parts/08_node_npm
 . ./parts/09_mariadb_mysql
 
 echo "FULL setup ready"
