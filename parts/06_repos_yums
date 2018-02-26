@@ -21,7 +21,7 @@ yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make git
 ## yum groupinstall "Development Tools"
 
 logline "06.04 add gh command to git for push to github (origin)"
-git config --global alias.gh '!f() { git add -A && git commit -m "$@:incremental" && git push; }; f'
+git config --global alias.gh '!f() { git add -A && git commit -m "${@:-incremental}" && git push; }; f'
 
 logline "06.99 repos and yums END"
 
