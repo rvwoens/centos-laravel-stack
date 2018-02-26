@@ -1,0 +1,17 @@
+#!/bin/bash
+echo "Centos7 server install -- FULL SETUP"
+
+. ./parts/01_user_create
+. ./parts/02_set_hostname
+. ./parts/03_global_settings
+. ./parts/04_root_password
+. ./parts/05_security
+. ./parts/06_repos_yums
+. ./parts/07_php71
+. ./parts/08_node_npm1
+. ./parts/09_mariadb_mysql
+
+echo "FULL setup ready"
+echo "You might want to add a new served domain. Log in to $username and run addserver <domain>"
+
+
