@@ -34,7 +34,7 @@ Now you can run complete setups:
 
 - setup_clean
 - setup_full
-- more coming soon..
+- setup_docker (coming soon..)
 
 or you can only install part of the setup from the parts directory
 
@@ -49,14 +49,16 @@ Setup full includes php, mariadb, node/npm, nginx, git repo deployment and sets 
 
 ### parts
 
+parts are numbered to show the order in which they should be called.
+
 #### 01 user create
 create the default user and allow sudo
 
 #### 02 set hostname
 changes the hostname
 
-#### 03 global settings
-color prompts, timezone settings, ntp server, fortune and cowsay
+#### 03 repos and yums
+Add remi and epel repo, updates the system and yums the basics
 
 #### 04 root password
 secures the root user
@@ -64,8 +66,8 @@ secures the root user
 #### 05 security
 firewalls, sshd security and fail2ban
 
-#### 06 repos and yums
-Add remi and epel repo, updates the system and yums the basics
+#### 06 global settings
+color prompts, timezone settings, ntp server, fortune and cowsay (important!)
 
 #### 07 php71
 Set up php 71 including fpm and composer
