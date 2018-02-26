@@ -2,26 +2,26 @@
 
 . ${BASH_SOURCE%/*}/00_settings
 
-logline "03.00 global settings START"
+logline "06.00 global settings START"
 # color prompt
-logline "03.01 color prompt"
+logline "06.01 color prompt"
 echo 'export PS1="\[\e[31;1m\]\h \[\e[0;34m\]\w\[\e[39m\] \[\e[0;32m\]\u\[\e[39m\] \\$ "' >> /etc/profile.d/prompt.sh
 
 ## set local timezone
-logline "03.02 set timezone"
+logline "06.02 set timezone"
 timedatectl set-timezone Europe/Amsterdam
 
-logline "03.03 NTP server"
+logline "06.03 NTP server"
 yum -y -d1 install ntp ntpdate ntp-doc
 ntpdate pool.ntp.org
 service ntpd start
 systemctl enable ntpd
 
 ## yum fortune and cowsay
-logline "03.04 install fortune and cowsay"
+logline "06.04 install fortune and cowsay"
 yum -y install fortune-mod cowsay
 echo "fortune | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
 
-logline "03.99 global settings END"
+logline "06.99 global settings END"
  
 
