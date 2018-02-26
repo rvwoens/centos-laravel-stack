@@ -35,3 +35,4 @@ echo "ssh $username@$hostname"
 echo "When ok, proceed with stage2"
 
 
+
