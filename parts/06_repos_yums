@@ -16,9 +16,12 @@ logline "06.02 update system"
 yum -d1 -y update
 
 logline "06.03 yum some sysop and dev tools"
-yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make
+yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make git
 ## optional BIG development install
 ## yum groupinstall "Development Tools"
+
+logline "06.04 add gh command to git for push to github (origin)"
+git config --global alias.gh '!f() { git add -A && git commit -m "$@:incremental" && git push; }; f'
 
 logline "06.99 repos and yums END"
 
