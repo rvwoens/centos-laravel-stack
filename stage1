@@ -1,5 +1,7 @@
 #!/bin/bash
-echo "**** simple centos7 server install for laravel -- STAGE1"
+echo ">>>>>>>> simple centos7 server install for laravel -- STAGE1"
+
+##### get some INFO #####
 
 while [ -z "$hostname" ]; do
 	echo -n "Enter a hostname >" && read hostname
@@ -16,6 +18,9 @@ while [ -z "$pubkey" ]; do
 	read pubkey
 done
 
+###### Lets start ######
+
+## set user's ssh 
 su $username <<-'EOF'
 	mkdir ~/.ssh/ 
 	touch ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
@@ -25,14 +30,26 @@ su $username <<-'EOF'
 	chmod 0700 ~/.ssh
 	
 	mkdir ~/bin
-	echo "export PATH=\$PATH:~/bin" >> ~/.bashrc 
+	echo "export PATH=\$PATH:~/bin" >> ~/.bashrc
+
+	## get rid of unreadable vim colorcoding
+	echo -e "syntax off\nset t_ti= t_te= \n" >> ~/.vimrc 
 EOF
-
 echo -e "\n$pubkey\n" >>/home/$username/.ssh/authorized_keys
-echo "------------------------------------------------------------------"
-echo "Before we lock down everything, verify you can ssh to $username now"
-echo "ssh $username@$hostname"
-echo "When ok, proceed with stage2"
 
+## add user to sudoers
+chmod u+w /etc/sudoers
+echo "$username 	ALL=(ALL) NOPASSWD:	ALL" >>/etc/sudoers
+chmod u-w /etc/sudoers
+
+echo ">>>>>>>> User $username created, added to sudo-ers and accessable with public key"
+
+## color prompt
+echo 'export PS1="\[\e[31;1m\]\h \[\e[0;34m\]\w\[\e[39m\] \[\e[0;32m\]\u\[\e[39m\] \\$ "' >> /etc/profile.d/prompt.sh
+
+## create long (emergency) password for root
+newpas=`tr -dc A-Z-a-z0-9 < /dev/urandom | head -c${1:-32}`
+echo $newpas | passwd root --stdin
+echo ">>>>>>>>> ROOT password set to $newpas - you might want to write this down"
 
 
