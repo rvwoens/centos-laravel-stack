@@ -6,12 +6,10 @@ echo ">>>>>>>> simple centos7 server install for laravel -- STAGE1"
 while [ -z "$hostname" ]; do
 	echo -n "Enter a hostname >" && read hostname
 done
-hostnamectl set-hostname $hostname
 
 while [ -z "$username" ]; do
 	echo -n "Enter a username >" && read username
 done
-adduser $username -m -n && passwd $username -l
 
 while [ -z "$pubkey" ]; do
 	echo "Paste your public key for ssh access"
@@ -19,6 +17,12 @@ while [ -z "$pubkey" ]; do
 done
 
 ###### Lets start ######
+
+## lets name the host
+hostnamectl set-hostname $hostname
+
+## add the user and lock the password
+adduser $username -m -n && passwd $username -l
 
 ## set user's ssh 
 su $username <<-'EOF'
@@ -51,5 +55,47 @@ echo 'export PS1="\[\e[31;1m\]\h \[\e[0;34m\]\w\[\e[39m\] \[\e[0;32m\]\u\[\e[39m
 newpas=`tr -dc A-Z-a-z0-9 < /dev/urandom | head -c${1:-32}`
 echo $newpas | passwd root --stdin
 echo ">>>>>>>>> ROOT password set to $newpas - you might want to write this down"
+echo -n "Enter to continue >" && read
+
+## set local timezone
+timedatectl set-timezone Europe/Amsterdam
+
+## add REPOs
+yum -d1 -y install epel-release
+yum -d1 -y install wget
+wget -q http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+sudo rpm -Uvh remi-release-7*.rpm
+echo ">>>>>>>> Current repo's"
+yum -q repolist
+yum -d1 -y update
+
+## yum PHP 7.1 and start fpm
+yum -d1 -y install php71-php-fpm php71-php-cli php71-php-mysqlnd php71-php-mcrypt 
+yum -d1 -y install  php71-php-pecl-imagick php71-php-pear  php71-php-mbstring
+yum -d1 -y install  php71-php-common
+## enable php7.1 fpm service
+systemctl enable php71-php-fpm
+service php71-php-fpm start
+
+## yum mariadb and enable
+yum -d1 -y install mariadb-server mariadb
+systemctl enable mariadb
+service mariadb start
+
+## yum fortune and cowsay
+yum -d1 -y install fortune-mod cowsay
+echo "fortune | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
+
+## yum some tools
+yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf
+## optional BIG development install
+## yum groupinstall "Development Tools"
+
+
+
+
+
+
+
 
 
