@@ -1,0 +1,37 @@
+#!/bin/bash
+echo "**** simple centos7 server install for laravel -- STAGE1"
+
+while [ -z "$hostname" ]; do
+	echo -n "Enter a hostname >" && read hostname
+done
+hostnamectl set-hostname $hostname
+
+while [ -z "$username" ]; do
+	echo -n "Enter a username >" && read username
+done
+adduser $username -m -n && passwd $username -l
+
+while [ -z "$pubkey" ]; do
+	echo "Paste your public key for ssh access"
+	read pubkey
+done
+
+su $username <<-'EOF'
+	mkdir ~/.ssh/ 
+	touch ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
+	# add deploy key for the machine
+	ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa 
+	
+	chmod 0700 ~/.ssh
+	
+	mkdir ~/bin
+	echo "export PATH=\$PATH:~/bin" >> ~/.bashrc 
+EOF
+
+echo -e "\n$pubkey\n" >>/home/$username/.ssh/authorized_keys
+echo "------------------------------------------------------------------"
+echo "Before we lock down everything, verify you can ssh to $username now"
+echo "ssh $username@$hostname"
+echo "When ok, proceed with stage2"
+
+
