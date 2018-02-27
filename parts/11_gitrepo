@@ -12,6 +12,8 @@ if [ -z "$username" ]; then
 fi
 su -c "mkdir /home/$username/git" $username
 
+logline "11.02 create /var/www for laravel apps"
+mkdir /var/www
 
 echo "The repos are created when addvhost is called (in ~/bin of $username)"
 
