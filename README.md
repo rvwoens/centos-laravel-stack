@@ -20,6 +20,7 @@ The git repository setup makes it very easy to deploy a laravel version to the s
 yum -y install git
 git clone https://github.com/rvwoens/centos7serverinstall.git
 cd  centos7serverinstall
+./setup_full
 ```
 
 Now you can run complete setups:
