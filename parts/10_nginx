@@ -1,0 +1,52 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "10.00 nginx START"
+
+logline "10.01 get a nginx signing key"
+wget http://nginx.org/keys/nginx_signing.key
+rpm --import nginx_signing.key
+rm -f nginx_signing.key
+
+logline "10.02 yum nginx"
+yum -y -d1 install nginx
+systemctl enable nginx
+systemctl start nginx
+
+logline "10.03 sites-available and sites-enabled setup (debian style)"
+# a dir to put all vhosts
+mkdir /etc/nginx/sites-available
+# a dir with symlinks to sites-available 
+mkdir /etc/nginx/sites-enabled
+
+logline "10.04 Create vhost-enable and vhost-disable for easy tweaking"
+TOOLDIR=/usr/local/bin
+# lets create an enable and disable command
+cat <<-'EOF' >$TOOLDIR/vhost-enable
+	#!/bin/bash
+	ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/$1
+EOF
+chmod a+x $TOOLDIR/vhost-enable
+cat <<-'EOF' >$TOOLDIR/vhost-disable
+	#!/bin/bash
+	rm /etc/nginx/sites-enabled/$1
+EOF
+chmod a+x $TOOLDIR/vhost-disable
+
+if grep "server_names_hash_bucket_size" /etc/nginx/nginx.conf ; then
+	echo "nginx already patched.."
+else
+	conftemp=`mktemp`
+	cat /etc/nginx/nginx.conf | sed "s#include /etc/nginx/conf.d/\*.conf;#include /etc/nginx/conf.d/\*.conf;\n    include /etc/nginx/sites-enabled/\*.conf;\n    server_names_hash_bucket_size 64;\n\n#" >$conftemp
+	mv -f $conftemp /etc/nginx/nginx.conf
+fi
+
+logline "10.05 start services"
+service php71-php-fpm restart
+service nginx restart
+# create a symlink 
+ln -s /var/opt/remi/php71/log/php-fpm /var/log/php-fpm
+
+logline "10.99 nginx END"
+

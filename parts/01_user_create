@@ -43,5 +43,9 @@ chmod u+w /etc/sudoers
 echo "$username         ALL=(ALL) NOPASSWD:     ALL" >>/etc/sudoers
 chmod u-w /etc/sudoers
 
+logline "01.07 copy user scripts"
+cp -R ${BASH_SOURCE%/*}/userbin/* /home/$username/bin
+chown -R $username:users /home/$username/bin
+
 logline "01.99 user create END"
 

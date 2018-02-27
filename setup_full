@@ -10,8 +10,10 @@ echo "Centos7 server install -- FULL SETUP"
 . ./parts/07_php71
 . ./parts/08_node_npm
 . ./parts/09_mariadb_mysql
+. ./parts/10_nginx
+. ./parts/11_gitrepo
 
 echo "FULL setup ready"
-echo "You might want to add a new served domain. Log in to $username and run addserver <domain>"
+echo "You might want to add a new vhost. Log in to $username and run addvhost <domain>"
 
 
