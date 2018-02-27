@@ -8,8 +8,9 @@ if [ -z "$1" ]; then
         echo "USE FULL DOMAIN like xxyy.nl or asd.com"
         exit;
 fi
+# expand the ~ directory
+HOME=`readlink -f ~`
 
-HOME=`readlink ~`
 export WWWDIR=/var/www
 export GITDIR=$HOME/git
 export VHOSTDIR=/etc/nginx/sites-available
@@ -17,6 +18,11 @@ export VHOSTDIR=/etc/nginx/sites-available
 WWWSITE=$WWWDIR/$1
 GITSITE=$GITDIR/$1
 SERVERNAME=$1
+
+echo "Laravel app    at: $WWWSITE"
+echo "Git repository at: $GITSITE"
+echo "Servername       : $SERVERNAME"
+echo -n "Press return to continue >" && read
 
 sudo mkdir $WWWSITE
 sudo mkdir $WWWSITE/public
@@ -102,10 +108,19 @@ cat <<-EOF-postreceive >post-receive
         composer dump-autoload
         npm install
         php artisan migrate
-	## laravel 5.6
-        npm run dev
-	## laravel 5.1
-        ## ./gulp
+	php artisan vendor:publish
+	php artisan route:clear
+	php artisan config:clear
+	php artisan cache:clear
+	
+	## laravel 5.6 webpack style
+	if grep "npm run production" package.json ; then
+		npm run production
+	fi
+	## older laravel gulpfiles
+	if [ -e gulpfile.js ]; then
+        	gulp
+	fi	
 
         sudo chown nginx:nginx ./ -R
         sudo chmod -R a+w storage
@@ -116,7 +131,8 @@ cd ~
 
 echo "Git repo $GITSITE created"
 echo "Now cut/paste this locally:"
-echo "git remote add web ssh://$USER@$(hostname -f)$GITSITE"
-echo "git push web -f"
-echo "--- DONE ---"
+echo "-----------------------------------------------"
+echo "git remote add web ssh://$USER@[domain]$GITSITE"
+echo "git push web master"
+echo "-----------------------------------------------"
 
