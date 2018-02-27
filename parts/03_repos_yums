@@ -12,8 +12,8 @@ sudo rpm -Uvh remi-release-7*.rpm
 rm -f remi-release-7*.rpm
 yum -q repolist
 
-logline "03.02 update system"
-yum -d1 -y update
+logline "03.02 update system - this can take a while.."
+yum -y update
 
 logline "03.03 yum some sysop and dev tools"
 yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make git
