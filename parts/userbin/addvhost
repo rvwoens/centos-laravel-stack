@@ -131,8 +131,8 @@ cd ~
 
 echo "Git repo $GITSITE created"
 echo "Now cut/paste this locally:"
-echo "-----------------------------------------------"
-echo "git remote add web ssh://$USER@[domain]$GITSITE"
+echo "-------------------------------------------------------------"
+echo "git remote add web ssh://$USER@[domain]/~/git/$SERVERNAME"
 echo "git push web master"
-echo "-----------------------------------------------"
+echo "-------------------------------------------------------------"
 
