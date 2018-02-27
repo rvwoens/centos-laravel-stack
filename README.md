@@ -9,15 +9,7 @@ some helper scripts for installing a centos7 server with
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs.
 
-The git-repo deployment makes it very easy to deploy a git laravel version to the (staging/production) server by calling:
-```
-git push web -f
-or
-git push web <tag|branchname> -f
-```
-and the pushed tag/branch is automatically checked out to you server's path and
-updated (composer update, dump-autoload, artisan migrate, npm update, npm run dev or gulp etc.)
-
+The git repository setup makes it very easy to deploy a laravel version to the server by creating a remote repo and push the branch/tag to the server.  
 
 ### how to start
 
@@ -77,6 +69,28 @@ Installs node and npm
 
 #### 09 mysql / mariadb
 installs mariadb and sets it up for production
+
+#### 10 nginx
+set up nginx for php-fpm and multiple virtual hosts
+
+#### 11 git repository
+
+Actually this uses a separate script 'addvhost' (run this as the created user, not as root. Its in its path)
+- add /var/www/<domain> for the laravel app
+- creates a nginx config in /etc/nginx/sites-available
+- creates an empty git repository under ~/git/<domain>
+- creates a receive-hook for this repository so it automatically updates the laravel app at /var/www/<domain> after a push
+
+On the development machine just add:
+```
+git remote add web ssh://<user>@<host>/~/git/<domain>
+git push web -f
+or
+git push web <tag|branchname> -f
+```
+and the pushed tag/branch is automatically checked out to you server's path and
+updated (composer update, dump-autoload, artisan migrate, npm update, npm run dev or gulp etc.)
+Check out the file post-receive in the hooks directory at ~/git/<domain>/hooks 
 
 
 
