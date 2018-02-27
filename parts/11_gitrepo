@@ -15,5 +15,5 @@ su -c "mkdir /home/$username/git" $username
 
 echo "The repos are created when addvhost is called (in ~/bin of $username)"
 
-logline "11.99 nginx END"
+logline "11.99 git repo END"
 
