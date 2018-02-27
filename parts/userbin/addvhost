@@ -104,23 +104,25 @@ cat <<-EOF-postreceive >post-receive
 
         git --work-tree=\$WORK_DIR --git-dir=\$GIT_DIR checkout \$branch -f
         cd \$WORK_DIR
-        composer install
-        composer dump-autoload
-        npm install
-        php artisan migrate
-	php artisan vendor:publish
-	php artisan route:clear
-	php artisan config:clear
-	php artisan cache:clear
+	if [ -x production_deploy ]; then
+		# custom post-deployment script exists
+		./production_deploy
+	else
+		# run some default post-deployment stuff
+        	composer install
+        	composer dump-autoload
+        	npm install
+        	php artisan migrate
 	
-	## laravel 5.6 webpack style
-	if grep "npm run production" package.json ; then
-		npm run production
+		## laravel 5.6 webpack style
+		if grep "npm run production" package.json ; then
+			npm run production
+		fi
+		## older laravel gulpfiles
+		if [ -e gulpfile.js ]; then
+        		gulp
+		fi
 	fi
-	## older laravel gulpfiles
-	if [ -e gulpfile.js ]; then
-        	gulp
-	fi	
 
         sudo chown nginx:nginx ./ -R
         sudo chmod -R a+w storage
