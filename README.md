@@ -85,13 +85,14 @@ Actually this uses a separate script 'addvhost' (run this as the created user, n
 On the development machine just add:
 ```
 git remote add web ssh://<user>@<host>/~/git/<domain>
-git push web -f
+git push web master
 or
-git push web <tag|branchname> -f
+git push web <tag|branchname>
 ```
 and the pushed tag/branch is automatically checked out to you server's path and
-updated (composer update, dump-autoload, artisan migrate, npm update, npm run dev or gulp etc.)
-Check out the file post-receive in the hooks directory at ~/git/<domain>/hooks 
+updated. You can create a custom post-deployment script called ```production_deploy``` with your own artisan/composer/npm commands.
+
+
 
 
 
