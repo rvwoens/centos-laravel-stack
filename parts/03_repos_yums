@@ -16,7 +16,7 @@ logline "03.02 update system - this can take a while.."
 yum -y update
 
 logline "03.03 yum some sysop and dev tools"
-yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf gcc-c++ make git
+yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf automake gcc-c++ make git
 ## optional BIG development install
 ## yum groupinstall "Development Tools"
 
