@@ -1,10 +1,10 @@
-## simple centos7 server install for laravel
-some helper scripts for installing a centos7 server with
+## simple centos7 laravel 5.x nginx php-fpm stack
+configure a centos7 server with
 
-* Nginx with virtual hosts
+* Nginx and virtual hosts
 * Php 7.1 fpm & cli  
 * Laravel
-* Security 
+* Basic security 
 * Deployment by pushing a git repo
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs.
@@ -18,8 +18,8 @@ The git repository setup makes it very easy to deploy a laravel version to the s
 
 ```bash
 yum -y install git
-git clone https://github.com/rvwoens/centos7serverinstall.git
-cd  centos7serverinstall
+git clone https://github.com/rvwoens/centos7-laravel-stack.git
+cd centos7-laravel-stack
 ./setup_full
 ```
 
