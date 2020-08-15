@@ -1,9 +1,9 @@
-## simple centos7 laravel 5.x nginx php-fpm stack
-configure a centos7 server with
+## simple centos8 laravel 7.x nginx php-fpm stack
+configure a centos8 server with
 
 * Nginx and virtual hosts
-* Php 7.1 fpm & cli  
-* Laravel
+* Php 7.4 fpm & cli  
+* Laravel 7.x
 * Basic security 
 * Deployment by pushing a git repo
 
@@ -13,7 +13,7 @@ The git repository setup makes it very easy to deploy a laravel version to the s
 
 ### how to start
 
-* bring up a centos 7 server somewhere
+* bring up a centos 8 server somewhere
 * ssh as root and run:
 
 ```bash
