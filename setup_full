@@ -7,7 +7,7 @@ echo "Centos7 server install -- FULL SETUP"
 . ./parts/04_root_password
 . ./parts/05_security
 . ./parts/06_global_settings
-. ./parts/07_php71
+. ./parts/07_php
 . ./parts/08_node_npm
 . ./parts/09_mariadb_mysql
 . ./parts/10_nginx
