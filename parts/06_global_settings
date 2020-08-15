@@ -12,7 +12,7 @@ logline "06.02 set timezone"
 timedatectl set-timezone Europe/Amsterdam
 
 logline "06.03 Chrony server as NTP"
-dnf install chrony
+dnf install -y chrony
 systemctl start chronyd
 # systemctl status chronyd
 systemctl enable chronyd

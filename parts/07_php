@@ -29,8 +29,8 @@ mv -f $phpinitemp $phpini
 
 logline "07.03 fpm service"
 ## enable php7.1 fpm service
-systemctl enable php71-php-fpm
-service php71-php-fpm start
+systemctl enable php74-php-fpm
+service php74-php-fpm start
 
 logline "07.04 composer"
 curl -sS https://getcomposer.org/installer | php
