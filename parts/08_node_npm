@@ -5,11 +5,13 @@
 logline "08.00 node and npm START"
 
 logline "08.01 install node and npm"
-curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
 yum -y -d1 install nodejs
 
-logline "08.02 gulp"
-npm install --global gulp-cli
+logline "08.02 yarn"
+npm install --global yarn
+#logline "08.02 gulp"
+#npm install --global gulp-cli
 
 logline "08.99 node npm END"
 

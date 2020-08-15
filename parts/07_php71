@@ -6,15 +6,16 @@ logline "07.00 install php7.1 from remi"
 
 logline "07.01 yum php"
 ## yum PHP 7.1 and start fpm
-yum -d1 -y install php71-php-fpm php71-php-cli php71-php-mysqlnd php71-php-mcrypt
-yum -d1 -y install  php71-php-pecl-imagick php71-php-pear  php71-php-mbstring
-yum -d1 -y install  php71-php-common
+yum -d1 -y install php74-php-fpm php74-php-cli php74-php-mysqlnd php74-php-mcrypt
+yum -d1 -y install  php74-php-pecl-imagick php74-php-mbstring
+#php71-php-pear
+yum -d1 -y install  php74-php-common
 
 ## make php available without '71'
-ln -s /usr/bin/php71 /usr/bin/php
+ln -s /usr/bin/php74 /usr/bin/php
 
 logline "07.02 php.ini changes (short open tags, expose off, max exec time, memory limit, date.timezone, fix_pathinfo)"
-phpini=`php71 --ini | grep Loaded | grep -o -e '/etc.*'`
+phpini=`php74 --ini | grep Loaded | grep -o -e '/etc.*'`
 echo "PHP ini file at $phpini"
 phpinitemp=`mktemp`
 cat $phpini |

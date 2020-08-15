@@ -43,10 +43,10 @@ else
 fi
 
 logline "10.05 start services"
-service php71-php-fpm restart
+service php74-php-fpm restart
 service nginx restart
 # create a symlink 
-ln -s /var/opt/remi/php71/log/php-fpm /var/log/php-fpm
+ln -s /var/opt/remi/php74/log/php-fpm /var/log/php-fpm
 
 logline "10.99 nginx END"
 
