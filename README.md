@@ -19,7 +19,7 @@ The git repository setup makes it very easy to deploy a laravel version to the s
 ```bash
 yum -y install git
 git clone https://github.com/rvwoens/centos-laravel-stack.git
-cd centos7-laravel-stack
+cd centos-laravel-stack
 ./setup_full
 ```
 
@@ -47,6 +47,9 @@ parts are numbered to show the order in which they should be called.
 #### 01 user create
 create the default user and allow sudo
 
+* asks for username
+* asks for ssh public key to access this account remotely. Paste the contents of your ~/.ssh/id_rsa.pub
+
 #### 02 set hostname
 changes the hostname
 
@@ -70,6 +73,8 @@ Installs node and npm
 
 #### 09 mysql / mariadb
 installs mariadb and sets it up for production
+
+* MariaDB asks some questions during install
 
 #### 10 nginx
 set up nginx for php-fpm and multiple virtual hosts

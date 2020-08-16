@@ -26,8 +26,8 @@ echo -n "Press return to continue >" && read
 
 sudo mkdir $WWWSITE
 sudo mkdir $WWWSITE/public
-echo "welcome to $SERVERNAME but it is still empty" | sudo tee --append $WWWSITE/public/index.php
-sudo chown nginx:nginx -R $WWWSITE
+echo "welcome to $SERVERNAME but it is still empty <?='But PHP is working:'.implode(',',[1,2,3,4]);?>\n\n" | sudo tee --append $WWWSITE/public/index.php
+sudo chown $USER:nginx -R $WWWSITE
 
 mkdir $GITSITE
 echo "Created $WWWSITE and $GITSITE"
@@ -131,10 +131,11 @@ EOF-postreceive
 chmod a+x post-receive
 cd ~
 
+myip=`curl -s ifconfig.me`
 echo "Git repo $GITSITE created"
 echo "Now cut/paste this locally:"
 echo "-------------------------------------------------------------"
-echo "git remote add web ssh://$USER@[domain]/~/git/$SERVERNAME"
+echo "git remote add web ssh://$USER@$myip/~/git/$SERVERNAME"
 echo "git push web master"
 echo "-------------------------------------------------------------"
 
