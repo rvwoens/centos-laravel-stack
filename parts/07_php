@@ -28,7 +28,15 @@ cat $phpini |
 mv -f $phpinitemp $phpini
 
 logline "07.03 fpm service"
-## enable php7.1 fpm service
+#phpfpmconf=/etc/opt/remi/php74/php-fpm.d/www.conf
+phpconfdir=`php74 --ini | grep "Configuration File" | grep "Path" | grep -o -e '/etc.*'`
+phpfpmconf=$phpconfdir/php-fpm.d/www.conf
+phpfpmconftemp=`mktemp`
+cat $phpfpmconf |
+  sed -e "s/listen =/\nlisten=127.0.0.1:9000\n;listen =/" >$phpfpmconftemp
+mv -f $phpfpmconftemp $phpfpmconf
+
+## enable php fpm service
 systemctl enable php74-php-fpm
 service php74-php-fpm start
 

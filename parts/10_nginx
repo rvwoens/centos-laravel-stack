@@ -41,12 +41,15 @@ else
 	cat /etc/nginx/nginx.conf | sed "s#include /etc/nginx/conf.d/\*.conf;#include /etc/nginx/conf.d/\*.conf;\n    include /etc/nginx/sites-enabled/\*.conf;\n    server_names_hash_bucket_size 64;\n\n#" >$conftemp
 	mv -f $conftemp /etc/nginx/nginx.conf
 fi
+logline "10.05 punch a hole in Selinux"
+setsebool -P httpd_can_network_connect 1
 
-logline "10.05 start services"
+logline "10.06 start services"
 service php74-php-fpm restart
 service nginx restart
 # create a symlink 
 ln -s /var/opt/remi/php74/log/php-fpm /var/log/php-fpm
+
 
 logline "10.99 nginx END"
 
