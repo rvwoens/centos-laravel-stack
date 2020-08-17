@@ -15,6 +15,6 @@ git add --all .
 git commit -a -m "${1:-Release $NEWTAG}"
 git tag "$NEWTAG"
 echo ">>>> git push origin"
-git push origin
+git push origin master:master
 echo -e ">>>> git push origin --tags "
 git push origin --tags
