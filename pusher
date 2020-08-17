@@ -12,7 +12,7 @@ echo ">>>> git pull origin (CI might commit stuff)"
 git pull origin
 
 echo ">>>> Creating VERSION"
-echo "version=$NEWTAG" > ./VERSION
+echo "version=$NEWTAG\ndate=\"$(date)\"" > ./VERSION
 
 echo ">>>> Creating new version tag $NEWTAG"
 git add --all .
