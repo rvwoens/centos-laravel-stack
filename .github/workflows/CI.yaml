@@ -17,20 +17,20 @@ jobs:
     - name: Run test suite
       run: tests/all
 
-    - uses: actions-ecosystem/action-get-latest-tag@v1
-      id: get-latest-tag
-
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ steps.get-latest-tag.outputs.tag }}
-        release_name: Release ${{ steps.get-latest-tag.outputs.tag }}
-        body:
-        draft: false
-        prerelease: false
+#    - uses: actions-ecosystem/action-get-latest-tag@v1
+#      id: get-latest-tag
+#
+#    - name: Create Release
+#      id: create_release
+#      uses: actions/create-release@v1
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#      with:
+#        tag_name: ${{ steps.get-latest-tag.outputs.tag }}
+#        release_name: Release ${{ steps.get-latest-tag.outputs.tag }}
+#        body:
+#        draft: false
+#        prerelease: false
 
 #    - uses: stefanzweifel/git-auto-commit-action@v4
 #      with:
