@@ -26,8 +26,8 @@ The git repository setup makes it very easy to deploy a product version to the s
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.35.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.35
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.36.tar.gz | tar -xz
+cd centos-laravel-stack-1.0.36
 ./setup_full
 
 ```
@@ -44,7 +44,7 @@ or you can only install part of the setup from the parts directory
 parts are numbered to show the order in which they should be called.
 
 #### 01 user create
-create the default user and allow sudo
+create the default user and allow sudo. Block using passwords and only allow access using your public key for security.
 
 * asks for username
 * asks for ssh public key to access this account remotely. Paste the contents of your ~/.ssh/id_rsa.pub

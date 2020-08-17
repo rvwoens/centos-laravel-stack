@@ -26,7 +26,7 @@ echo -n "Press return to continue >" && read
 
 sudo mkdir $WWWSITE
 sudo mkdir $WWWSITE/public
-echo "welcome to $SERVERNAME but it is still empty <?='But PHP is working:'.implode(',',[1,2,3,4]);?>\n\n" | sudo tee --append $WWWSITE/public/index.php
+echo -e "welcome to $SERVERNAME but it is still empty <?='But PHP is working:'.implode(',',[1,2,3,4]);?>\n\n" | sudo tee --append $WWWSITE/public/index.php
 sudo chown $USER:nginx -R $WWWSITE
 
 mkdir $GITSITE

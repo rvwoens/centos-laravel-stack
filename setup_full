@@ -15,7 +15,11 @@ echo "##########################################################"
 . ./parts/10_nginx
 . ./parts/11_gitrepo
 
+echo "##########################################################"
 echo "FULL setup ready"
-echo "You might want to add a new vhost. Log in to $username and run addvhost <domain>"
+echo "##########################################################"
+echo "Log out as root now, and never log in as root again."
+echo "Log in as $username now"
+
 
 
