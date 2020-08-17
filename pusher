@@ -14,11 +14,12 @@ git pull origin
 
 echo ">>>> Creating VERSION"
 echo "version=$NEWTAG\ndate=\"$(date)\"" > ./VERSION
-
+rmtemp=`mktemp`
 cat README.md | sed -e "s/v[^.]*.tar.gz/$NEWTAG.tar.gz/" >README2.md
 cat README.md | \
 	sed -e "s/archive\/[^t]*.tar.gz/archive\/$NEWTAG.tar.gz/" | \
-	sed -e "s/cd centos-laravel-stack-.*/cd centos-laravel-stack-$NEWTAGSHORT/" >README2.md
+	sed -e "s/cd centos-laravel-stack-.*/cd centos-laravel-stack-$NEWTAGSHORT/" >$rmtemp
+mv -f $rmtemp README.md
 
 echo ">>>> Creating new version tag $NEWTAG"
 git add --all .
