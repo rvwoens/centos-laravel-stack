@@ -7,12 +7,18 @@ else
 	echo "Use version format vX.X.XX"
 	NEWTAG=$2
 fi
-
+# tag with "v" removed
+NEWTAGSHORT=${NEWTAG:v}
 echo ">>>> git pull origin (CI might commit stuff)"
 git pull origin
 
 echo ">>>> Creating VERSION"
 echo "version=$NEWTAG\ndate=\"$(date)\"" > ./VERSION
+
+cat README.md | sed -e "s/v[^.]*.tar.gz/$NEWTAG.tar.gz/" >README2.md
+cat README.md | \
+	sed -e "s/archive\/[^t]*.tar.gz/archive\/$NEWTAG.tar.gz/" | \
+	sed -e "s/cd centos-laravel-stack-.*/cd centos-laravel-stack-$NEWTAGSHORT/" >README2.md
 
 echo ">>>> Creating new version tag $NEWTAG"
 git add --all .

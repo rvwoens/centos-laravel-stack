@@ -27,8 +27,8 @@ The git repository setup makes it very easy to deploy a product version to the s
 
 ```bash
 yum -y install tar
-wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.25.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.25
+wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.26.tar.gz | tar -xz
+cd centos-laravel-stack-v1.0.26
 ./setup_full
 ```
 
