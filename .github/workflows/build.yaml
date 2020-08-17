@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run test suite
+      run: tests/all
+
+#    - uses: stefanzweifel/git-auto-commit-action@v4
+#      with:
+#          commit_message: Apply changes

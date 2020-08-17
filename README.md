@@ -1,15 +1,23 @@
-## simple centos8 laravel 7.x nginx php-fpm stack
-configure a centos8 server with
+## simple centos nginx php-fpm node npm yarn composer stack
+[![GitHub Release](https://img.shields.io/github/v/tag/rvwoens/centos-laravel-stack.svg?style=flat)](https://github.com/rvwoens/centos-laravel-stack)
+[![Total Downloads](https://img.shields.io/github/downloads/rvwoens/centos-laravel-stack/total)](https://github.com/rvwoens/centos-laravel-stack)
+[![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
+[![License](https://poser.pugx.org/cosninix/cos/license)](//packagist.org/packages/cosninix/cos)
+[![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/Build/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
+configure a centos server with
 
+* CentOS 
 * Nginx and virtual hosts
-* Php 7.4 fpm & cli  
-* Laravel 7.x
+* Php fpm & cli, composer  
+* Node, npm, yarn
 * Basic security 
-* Deployment by pushing a git repo
+* A git repo for pushing deployments 
+
+Versions: CentOS 8, Php 7.4, Node 12
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs.
 
-The git repository setup makes it very easy to deploy a laravel version to the server by creating a remote repo and push the branch/tag to the server.  
+The git repository setup makes it very easy to deploy a product version to the server by creating a remote repo and push the branch/tag to the server.  
 
 ### how to start
 
@@ -25,20 +33,10 @@ cd centos-laravel-stack
 
 Now you can run complete setups:
 
-- setup_clean
-- setup_full
-- setup_docker (coming soon..)
+- setup_clean (part 01..06 only) The clean setup does not install php, mariadb, node, nginx
+- setup_full (part 01..11)
 
 or you can only install part of the setup from the parts directory
-
-### setup clean
-
-The clean setup does not install php, mariadb, node, nginx
-
-### setup full
-
-Setup full includes php, mariadb, node/npm, nginx, git repo deployment and sets up a multihost environment
-
 
 ### parts
 
@@ -65,8 +63,8 @@ firewalls, sshd security and fail2ban
 #### 06 global settings
 color prompts, timezone settings, ntp server, fortune and cowsay (important!)
 
-#### 07 php71
-Set up php 71 including fpm and composer
+#### 07 php
+Set up php 74 including fpm and composer
 
 #### 08 node and npm
 Installs node and npm
@@ -80,10 +78,18 @@ installs mariadb and sets it up for production
 set up nginx for php-fpm and multiple virtual hosts
 
 #### 11 git repository
+It's very convenient to use a git repository on your server for deployment of new versions.
+* A directory is created at ```~/git``` on the user account (the user as entered in part 01) where all deployment repositories are located.
+* The git work directory is located at ```/var/www/[git repo domain]``` so checking out results in a new version deployed publically.
+* Extra hooks are provided to automatically check out the tag or branch that is pushed. So you only need to push a release, the rest is automatic.
 
+You can also create a script in your project root directory called ```production_deploy``` that is called after the checkout, for instance to do migrations.
+
+#### Finally
+logout as root
 Actually this uses a separate script 'addvhost' (run this as the created user, not as root. Its in its path)
 - add /var/www/<domain> for the laravel app
-- creates a nginx config in /etc/nginx/sites-available
+- creates a nginx config in /etc/nginx/sites-available and enabling it
 - creates an empty git repository under ~/git/<domain>
 - creates a receive-hook for this repository so it automatically updates the laravel app at /var/www/<domain> after a push
 
@@ -95,7 +101,25 @@ or
 git push web <tag|branchname>
 ```
 and the pushed tag/branch is automatically checked out to you server's path and
-updated. You can create a custom post-deployment script called ```production_deploy``` with your own artisan/composer/npm commands.
+updated. 
+
+You can create a custom post-deployment script called ```production_deploy``` with your own artisan/composer/npm commands.
+a typical production_deploy could look like this:
+```
+echo "DEPLOY"
+echo ">>>>>>>>> artisan DOWN"
+php artisan down
+echo ">>>>>>>>> composer INSTALL"
+composer install
+echo ">>>>>>>>> artisan MIGRATE"
+php artisan migrate --force
+echo ">>>>>>>>> yarn INSTALL"
+yarn install
+echo ">>>>>>>>> yarn run PRODUCTION"
+yarn run production
+echo ">>>>>>>>> artisan UP"
+php artisan up
+```
 
 
 
