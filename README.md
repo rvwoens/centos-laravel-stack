@@ -27,8 +27,8 @@ The git repository setup makes it very easy to deploy a product version to the s
 
 ```bash
 yum -y install tar
-wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.31.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.31
+wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.32.tar.gz | tar -xz
+cd centos-laravel-stack-1.0.32
 ./setup_full
 ```
 
@@ -88,9 +88,16 @@ You can also create a script in your project root directory called ```production
 
 #### Finally
 logout as root
-Actually this uses a separate script 'addvhost' (run this as the created user, not as root. Its in its path)
-- add /var/www/<domain> for the laravel app
-- creates a nginx config in /etc/nginx/sites-available and enabling it
+
+#### Adding new virtual host for a domain
+Log in as the default (created) user and run
+
+```
+    addvhost <<domain>>
+```
+
+- adds /var/www/<domain> for the laravel app (make sure to configure DNS to the IP of this server)
+- creates a nginx config in /etc/nginx/sites-available and enables it
 - creates an empty git repository under ~/git/<domain>
 - creates a receive-hook for this repository so it automatically updates the laravel app at /var/www/<domain> after a push
 
