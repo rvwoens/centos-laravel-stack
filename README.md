@@ -16,7 +16,7 @@
 * Basic security 
 * A git repo for pushing deployments 
 
-The scripts are all bash, and kept very simple so you can tweak them to your needs.
+The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
 The git repository setup makes it very easy to deploy a product version to the server by creating a remote repo and push the branch/tag to the server.  
 
