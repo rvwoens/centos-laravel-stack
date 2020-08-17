@@ -2,9 +2,10 @@
 [![GitHub Release](https://img.shields.io/github/v/tag/rvwoens/centos-laravel-stack.svg?style=flat)](https://github.com/rvwoens/centos-laravel-stack)
 [![Total Downloads](https://img.shields.io/github/downloads/rvwoens/centos-laravel-stack/total)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
-[![License](https://poser.pugx.org/cosninix/cos/license)](//packagist.org/packages/cosninix/cos)
+[![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/Build/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
-configure a centos server with
+
+### configure a centos server with
 
 * CentOS 
 * Nginx and virtual hosts
