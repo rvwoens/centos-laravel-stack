@@ -8,7 +8,7 @@ else
 	NEWTAG=$2
 fi
 # tag with "v" removed
-NEWTAGSHORT=${NEWTAG:v}
+NEWTAGSHORT=${NEWTAG:1}
 echo ">>>> git pull origin (CI might commit stuff)"
 git pull origin
 
