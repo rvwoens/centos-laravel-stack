@@ -1,0 +1,4 @@
+#! /bin/bash
+echo "=== EVERYHOUR run @ `date` ================================"
+# example everyhour
+echo "=== END RUN @ `date` =================================="

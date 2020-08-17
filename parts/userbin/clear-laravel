@@ -1,0 +1,8 @@
+# clear all laravel caches and reset all path-permissions
+sudo chmod -R a+w storage
+sudo chmod -R a+w bootstrap/cache
+php artisan clear-compiled
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear

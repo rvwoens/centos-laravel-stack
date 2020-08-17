@@ -1,0 +1,15 @@
+#!/bin/bash
+# tail the newest laravel log on storage
+if [ -d ./app/storage/logs ]; then
+	DIR="./app/storage/logs/log-"
+elif [ -d ./storage/logs ]; then
+	DIR="./storage/logs/"
+else
+	echo "app/storage/logs and storage/logs not found"
+	exit
+fi
+# pick the newest logfile
+LOG=`ls -t $DIR* | head -1`
+# LOG2=`ls -t ./app/storage/logs/log-cli* | head -1`
+echo "** LOGFILE $LOG $LOG2"
+tail -n 40 -f $LOG

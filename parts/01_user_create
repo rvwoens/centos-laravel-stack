@@ -46,6 +46,14 @@ chmod u-w /etc/sudoers
 logline "01.07 copy user scripts"
 cp -R ${BASH_SOURCE%/*}/userbin/* /home/$username/bin
 chown -R $username:users /home/$username/bin
+chmod a+x /home/$username/bin/*
+
+logline "01.08 create user crontab"
+cp -R ${BASH_SOURCE%/*}/usercron/* /home/$username/crontab
+chown -R $username:users /home/$username/crontab
+chmod a+x /home/$username/crontab/every*
+# start the cron for user
+su $username -l -c "cd crontab;crontab crondef"
 
 logline "01.99 user create END"
 

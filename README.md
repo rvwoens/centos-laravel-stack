@@ -26,8 +26,8 @@ The git repository setup makes it very easy to deploy a product version to the s
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.36.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.36
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.37.tar.gz | tar -xz
+cd centos-laravel-stack-1.0.37
 ./setup_full
 
 ```
@@ -112,7 +112,7 @@ and the pushed tag/branch is automatically checked out to you server's path and
 updated. 
 
 You can create a custom post-deployment script called ```production_deploy``` with your own artisan/composer/npm commands.
-a typical production_deploy could look like this:
+a typical production_deploy could look like this 
 ```
 echo "DEPLOY"
 echo ">>>>>>>>> artisan DOWN"
@@ -128,7 +128,12 @@ yarn run production
 echo ">>>>>>>>> artisan UP"
 php artisan up
 ```
+Make sure ```production_deploy``` is executable.
 
+### extra utilities in ~/bin
+* artisan - make sure you only need to type 'artisan' (on any laravel top directory)
+* clear-laravel -  clears all possible caches and restores path permissions
+* logtail - tails the latest laravel log for a live logview (from any laravel top directory)
 
 
 

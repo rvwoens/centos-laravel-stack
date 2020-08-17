@@ -1,0 +1,4 @@
+#! /bin/bash
+echo "=== EVERYWEEK run @ `date` ================================"
+# example everyweek
+echo "=== END RUN @ `date` =================================="

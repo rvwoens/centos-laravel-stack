@@ -88,47 +88,38 @@ cd $GITSITE
 git init --bare
 cd hooks
 cat <<-EOF-postreceive >post-receive
-        #!/bin/bash
-        GIT_DIR=$GITSITE
-        WORK_DIR=$WWWSITE
+	#!/bin/bash
 
-        sudo chown -R $USER:users \$WORK_DIR
+	GIT_DIR=$GITSITE
+	WORK_DIR=$WWWSITE
 
-        #check the pushed branch
-        while read oldrev newrev refname
-        do
-                echo "REFNAME = \$refname"
-                branch=\$(git rev-parse --symbolic --abbrev-ref \$refname)
-                echo "BRANCH = \$branch"
-        done
+	sudo chown -R $USER:nginx \$WORK_DIR
 
-        git --work-tree=\$WORK_DIR --git-dir=\$GIT_DIR checkout \$branch -f
-        cd \$WORK_DIR
+	#check the pushed branch
+	while read oldrev newrev refname
+	do
+		echo "REFNAME = \$refname"
+		branch=\$(git rev-parse --symbolic --abbrev-ref \$refname)
+		echo "BRANCH = \$branch"
+	done
+
+	echo ">>>> post-receive GIT checking out \$branch to \$WORK_DIR"
+
+	git --work-tree=\$WORK_DIR --git-dir=\$GIT_DIR checkout \$branch -f
+	cd \$WORK_DIR
 	if [ -x production_deploy ]; then
 		# custom post-deployment script exists
-		./production_deploy
-	else
-		# run some default post-deployment stuff
-        	composer install
-        	composer dump-autoload
-        	npm install
-        	php artisan migrate
-	
-		## laravel 5.6 webpack style
-		if grep "npm run production" package.json ; then
-			npm run production
-		fi
-		## older laravel gulpfiles
-		if [ -e gulpfile.js ]; then
-        		gulp
-		fi
+		echo ">>>> post-receive GIT running production_deploy"
+	./production_deploy
 	fi
-
-        sudo chown nginx:nginx ./ -R
-        sudo chmod -R a+w storage
-        # end of deploy script
-EOF-postreceive
+	# end of deploy script
+	EOF-postreceive
 chmod a+x post-receive
+
+echo "Adding Laravel schedule to crontab"
+cd ~/crontab
+echo "* * * * * php $WWWSITE/artisan schedule:run >> /dev/null 2>&1" >>crondef
+crontab crondef
 cd ~
 
 myip=`curl -s ifconfig.me`
