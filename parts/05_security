@@ -51,6 +51,19 @@ EOF
 systemctl start fail2ban
 systemctl enable fail2ban
 
+logline "05.04 SeLinux"
+echo -n "SELinux adds a bit of extra security but a PITA to administer. Use SeLinux [Y/n]=>" && read selinux
+selinuxconf='/etc/selinux/config'
+setemp=`mktemp`
+if [ "$selinux" = "n" ]; then
+  cat $selinuxconf |
+    sed -e "s/SELINUX=/\nSELINUX=disabled\n#SELINUX=/" >$setemp
+else
+  cat $selinuxconf |
+    sed -e "s/SELINUX=/\nSELINUX=enforcing\n#SELINUX=/" >$setemp
+fi
+mv -f $setemp $selinuxconf
+echo "You must reboot(!) your machine to use the new SeLinux setting"
 
 logline "05.99 security END"
 
