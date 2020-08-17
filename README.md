@@ -5,7 +5,7 @@
 [![Centos version](https://img.shields.io/badge/Node-12-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
-[![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/Build/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
+[![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
 
 ### configure a centos server with
 
