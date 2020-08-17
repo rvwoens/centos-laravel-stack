@@ -1,5 +1,7 @@
 #!/bin/bash
-echo "Centos7 server install -- FULL SETUP"
+echo "##########################################################"
+echo "Centos server install -- FULL SETUP"
+echo "##########################################################"
 
 . ./parts/01_user_create
 . ./parts/02_set_hostname
