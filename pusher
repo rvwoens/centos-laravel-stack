@@ -10,7 +10,11 @@ fi
 
 echo ">>>> git pull origin (CI might commit stuff)"
 git pull origin
-echo "Creating new version tag $NEWTAG"
+
+echo ">>>> Creating VERSION"
+echo "version=$NEWTAG" > ./VERSION
+
+echo ">>>> Creating new version tag $NEWTAG"
 git add --all .
 git commit -a -m "${1:-Release $NEWTAG}"
 git tag "$NEWTAG"
