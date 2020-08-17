@@ -1,11 +1,11 @@
-## simple centos nginx php-fpm node npm yarn composer stack
+## simple centos/nginx/php-fpm/node/npm/yarn/composer stack
 [![GitHub Release](https://img.shields.io/github/v/release/rvwoens/centos-laravel-stack.svg?style=flat)](https://github.com/rvwoens/centos-laravel-stack)
 [![GitHub Downloads](https://img.shields.io/github/downloads/rvwoens/centos-laravel-stack/total?color=green)](https://github.com/rvwoens/centos-laravel-stack/releases/latest)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
 
-### configure a centos server with
+### configure a bare centos server with
 [![Centos version](https://img.shields.io/badge/CentOS-8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Centos version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Centos version](https://img.shields.io/badge/Node-12-blue)](https://github.com/rvwoens/centos-laravel-stack)
@@ -27,8 +27,8 @@ The git repository setup makes it very easy to deploy a product version to the s
 
 ```bash
 yum -y install tar
-wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.28.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.28
+wget -q -O- https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.29.tar.gz | tar -xz
+cd centos-laravel-stack-1.0.29
 ./setup_full
 ```
 
