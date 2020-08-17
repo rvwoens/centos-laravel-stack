@@ -32,6 +32,9 @@ su $username <<-'EOF'
 	mkdir ~/bin
         echo "export PATH=\$PATH:~/bin" >> ~/.bashrc
 
+        # lets make a ~/crontab
+        mkdir ~/crontab
+
         ## get rid of unreadable vim colorcoding
         echo -e "syntax off\nset t_ti= t_te= \n" >> ~/.vimrc
 EOF
