@@ -2,15 +2,14 @@
 
 if [ -z "$2" ]; then
 	echo "Usage: addzhost <domain> <pull-repo> [<initial-tag>]"
-	echo "Add ZDD (zero downtime deployment) host"
+	echo "Add Zero Downtime Deployment virtual host using export from remote repository"
  	echo "1) creates /var/www/domain"
  	echo "2) creates vhost nginx to domain and *.domain (like www.asd.nl)"
  	echo "3) creates puller to pull from git repo <pull-repo>"
 	echo "4) checks out <initial-tag> as first release or MASTER as default"
 	echo "USE FULL DOMAIN like xxyy.nl or asd.com"
-	echo "USE gitlab ssh clone address - make sure this server id_rsa.pub has gitlab access to an account that can read the repo"
-	echo "Go to gitlab->user->profile->ssh keys and add the id_rsa.pub"
-	echo "Create a .env on the top directory"
+	echo "USE remote repo ssh clone address - make sure this server id_rsa.pub has access to an account that can read the repo"
+	echo "Dont forget to edit the .env on the top directory!"
 	exit;
 fi
 # expand the ~ directory
@@ -40,6 +39,7 @@ echo "Servername       : $SERVERNAME"
 echo "Initial release  : $TAG"
 echo -n "Press return to continue >" && read
 
+echo ">>>> Generating laravel directory structure for Zero-Downtime-Deploy"
 sudo mkdir $WWWSITE
 sudo mkdir -p $WWWSITE/releases/$TAG
 sudo mkdir -p $WWWSITE/storage

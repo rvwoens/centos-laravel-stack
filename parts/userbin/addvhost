@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-        echo "Usage: addvhost <domain>"
+        echo "Usage: addvhost <domain> - add virtual host using local git repository"
         echo "1) creates /var/www/domain"
         echo "2) creates vhost nginx to domain and *.domain (like www.asd.nl)"
         echo "3) creates git repo domain & upload hook"
