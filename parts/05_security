@@ -58,6 +58,7 @@ setemp=`mktemp`
 if [ "$selinux" = "n" ]; then
   cat $selinuxconf |
     sed -e "s/SELINUX=/\nSELINUX=disabled\n#SELINUX=/" >$setemp
+  export rebootOnExit=Y
 else
   cat $selinuxconf |
     sed -e "s/SELINUX=/\nSELINUX=enforcing\n#SELINUX=/" >$setemp

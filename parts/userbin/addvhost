@@ -26,7 +26,7 @@ echo -n "Press return to continue >" && read
 
 sudo mkdir $WWWSITE
 sudo mkdir $WWWSITE/public
-echo -e "welcome to $SERVERNAME but it is still empty <?='But PHP is working:'.implode(',',[1,2,3,4]);?>\n\n" | sudo tee --append $WWWSITE/public/index.php
+echo -e "welcome to $SERVERNAME but it is still empty. <?='testing: '.implode(',',[1,2,3,4]);?>\n\n" > $WWWSITE/public/index.php
 sudo chown $USER:nginx -R $WWWSITE
 
 mkdir $GITSITE
@@ -46,7 +46,8 @@ for f in $VHOSTDIR/*.conf; do
                 max=$v
         fi
 done
-let "max=$max+1"
+# 10# removes leading 0 which leads to octal numbering
+let "max=$((10#$max))+1"
 printf -v maxf "%02d" $max
 newconffile=$maxf-$SERVERNAME.conf
 newconf=$VHOSTDIR/$maxf-$SERVERNAME.conf

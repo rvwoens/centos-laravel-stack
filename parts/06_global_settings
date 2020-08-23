@@ -28,6 +28,9 @@ git clone https://github.com/bmc/fortunes.git /usr/local/share/fortunes
 yum -y install cowsay
 echo "fortune /usr/local/share/fortunes/fortunes | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
 
+loglin "06.05 additional yum installs"
+dnf install -y rsync
+
 logline "06.99 global settings END"
  
 

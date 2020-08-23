@@ -18,8 +18,11 @@ echo "##########################################################"
 echo "##########################################################"
 echo "FULL setup ready"
 echo "##########################################################"
-echo "Log out as root now, and never log in as root again."
-echo "Log in as $username now"
+echo "Need to reboot for SELinux config change. Press a key to reboot"
+echo "Then login as $username, not as root! Press a key to reboot"
+read
+reboot now
+
 
 
 
