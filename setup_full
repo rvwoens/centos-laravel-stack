@@ -14,6 +14,7 @@ echo "##########################################################"
 . ./parts/09_mariadb_mysql
 . ./parts/10_nginx
 . ./parts/11_laravel
+. ./parts/12_redis
 
 echo "##########################################################"
 echo "FULL setup ready"

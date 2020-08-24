@@ -1,0 +1,43 @@
+#!/bin/bash
+echo "RUN LOCAL, it connects to REMOTE!"
+export DATE=`date +%Y%m%d`
+export GZFILE=/tmp/my_backup.gz
+export SQLFILE=./my2local$DATE.sql
+echo "What is the remote server and user (format: user@host)? "
+read remoteserver
+echo "What is the remote database ? "
+read remotedb
+echo "What is the remote database password?"
+read remotedbpw
+
+echo "ssh $remoteserver and get a fresh $remotedb database"
+ssh $remoteserver -t -t <<ENDSSH
+rm -f $GZFILE
+mysqldump -u root -p$remotedbpw $remotedb  | pv | gzip > /tmp/my_backup.gz
+exit
+ENDSSH
+
+rm -f $SQLFILE
+rm -f $SQLFILE.gz
+
+scp $remoteserver:$GZFILE $SQLFILE.gz
+gzip -d $SQLFILE.gz
+ls -l $SQLFILE*
+
+echo "DONE. File $SQLFILE received "
+echo "Do you want to pump that into local database? Enter name: (will be created)"
+read localdb
+echo "Mysql will ask for the root password ->"
+mysql -u root -p <<SQLDOC
+	drop database if exists $localdb;
+
+	create database $localdb;
+
+	use $localdb;
+
+	source $SQLFILE;
+
+SQLDOC
+rm -f $SQLFILE
+rm -f $SQLFILE.gz
+echo "READY"

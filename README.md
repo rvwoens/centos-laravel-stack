@@ -26,8 +26,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.7.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.7
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.8.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.8
 ./setup_full
 
 ```
@@ -131,13 +131,21 @@ a typical production_deploy could look like this
 Usage: rollback [tag]
 - swaps the /var/www/[domain]/current link to the old release to make it available with zero downtime
 
-
-### extra utilities in ~/bin
-* artisan - make sure you only need to type 'artisan' (on any laravel top directory)
+### extra utilities in ~/bin 
+* artisan - shortcut to ```php artisan```
 * clear-laravel -  clears all possible caches and restores path permissions
 * logtail - tails the latest laravel log for a live logview (from any laravel top directory)
+* dbRemote2local - copy a remote mysql database to a local database
 
-
+### Tip
+Create a local script called ```pusher``` on your dev machine to run puller remotely after committing:
+```
+ssh $HOST -t -t << ENDSSH
+cd $DIR
+./puller $NEWTAG
+exit
+ENDSSH
+```
 
 
 
