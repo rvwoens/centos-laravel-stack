@@ -4,7 +4,7 @@
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
 
-### configure a bare centos server with
+### Installs a fresh server with
 [![Centos version](https://img.shields.io/badge/CentOS-8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Centos version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Centos version](https://img.shields.io/badge/Node-12-blue)](https://github.com/rvwoens/centos-laravel-stack)
@@ -13,11 +13,11 @@
 * Php fpm & cli, composer  
 * Node, npm, yarn
 * Basic security 
-* Add laravel projects with Zero-downtime deployment 
+* Add (multiple) laravel projects with Zero-Downtime deployment 
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
-The Zero-downtime deployment setup makes it very easy to deploy a product version on the server by by calling the ```puller``` script   
+The Zero-downtime deployment setup makes it very easy to deploy a product version on the server by calling the generated ```puller``` script   
 
 ### how to start
 
@@ -26,8 +26,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/downtime.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.1
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.2.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.2
 ./setup_full
 
 ```
