@@ -87,6 +87,10 @@ cat << EOFPULLER >$WWWSITE/puller
 	# even more atomic: ln -sf \$RELEASE_DIR current_tmp && mv -Tf current_tmp current
 	ln -sf \$RELEASE_DIR $WWWSITE/current
 	echo ">>>> \$1 is now live"
+	#maybe we need to restart some services like queue workers that need everything in 'current'
+	if [ -x after_deploy_is_live ]; then
+		./after_deploy_is_live
+	fi
 EOFPULLER
 cat << EOFROLLBACK >$WWWSITE/rollback
 	if [ -z "\$1" ]; then
