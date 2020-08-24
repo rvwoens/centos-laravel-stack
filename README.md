@@ -27,17 +27,10 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.9.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.9
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.10.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.10
 ./setup_full
-
 ```
-
-Now you can run complete setups:
-
-- ```setup_full``` (part 01..11)
-- Optionally run ```setup_clean``` (part 01..06 only) The clean setup does not install php, mariadb, node, nginx
-- Manually only install part of the setup from the parts directory for instance all parts except part ```08_node_npm```
 
 ### parts
 
