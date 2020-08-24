@@ -27,7 +27,7 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 ```bash
 yum -y install tar
 curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/downtime.tar.gz | tar -xz
-cd centos-laravel-stack-owntime
+cd centos-laravel-stack-2.0.1
 ./setup_full
 
 ```
