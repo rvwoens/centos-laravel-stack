@@ -12,6 +12,7 @@
 * Nginx and virtual hosts
 * Php fpm & cli, composer  
 * Node, npm, yarn
+* Redis 
 * Basic security 
 * Add (multiple) laravel projects with Zero-Downtime deployment 
 
@@ -26,8 +27,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.8.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.8
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.9.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.9
 ./setup_full
 
 ```
@@ -79,6 +80,9 @@ set up nginx for php-fpm and prepare for multiple virtual hosts with the sites-e
 
 #### 11 laravel
 Actually no laravel project is installed, but everything is prepared for adding a zero-downtime-deployment project using the ```addzhost``` command
+
+#### 12 redis
+Optionally install redis
 
 #### Finally
 logout as root. At this moment the server is ready for project deployments but none is deployed yet.
