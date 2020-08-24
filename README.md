@@ -26,8 +26,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.3.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.3
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.4.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.4
 ./setup_full
 
 ```
@@ -101,7 +101,11 @@ Log in as the default (created) user and run
 - generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
 - uses ```puller``` to release the initial tag into production
 
-Example:
+#### Note:
+You need access privileges from this server on the repository. 
+- For github or gitlab, Go to settings->ssh keys and add the contents of ```~/.ssh/id_rsa.pub``` to a new ssh key.
+
+####Example:
     
 ```$ addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```        
 Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
