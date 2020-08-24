@@ -91,6 +91,7 @@ cat << EOFPULLER >$WWWSITE/puller
 	if [ -x after_deploy_is_live ]; then
 		./after_deploy_is_live
 	fi
+	exit 0
 EOFPULLER
 cat << EOFROLLBACK >$WWWSITE/rollback
 	if [ -z "\$1" ]; then
@@ -114,8 +115,14 @@ echo "Created $WWWSITE ZDD structure. Now pulling initial release"
 if $WWWSITE/puller $TAG ; then
 	echo "Successful pull. Lets continue"
 else
-	echo "Exiting"
-	exit 1
+	echo "The pull was not succesfull. Do you want to rollback? (N/y)"
+	read rollback
+	if [ "$rollback" == "y" ]; then
+		echo "Removing $WWWSITE "
+		rm -Rf $WWWSITE
+		echo "Rolled back"
+		exit 1
+	fi
 fi
 echo "------------------------- NGINX vhost ---------------------------"
 max=0
