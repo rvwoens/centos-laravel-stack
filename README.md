@@ -26,8 +26,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.2.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.2
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.3.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.3
 ./setup_full
 
 ```
@@ -91,21 +91,23 @@ Log in as the default (created) user and run
 
 - adds /var/www/[domain] for the laravel app (make sure to configure DNS to the IP of this server)
 - creates a nginx config in /etc/nginx/sites-available and enables it
-- adds /var/www/[domain]/releases for each inidividual release
-- adds /var/www/[domain]/storage which is linked into each release
-- adds /var/www/[domain]/.env which is linked into each release
+- creates /var/www/[domain]/releases dir for each inidividual release
+- creates /var/www/[domain]/storage dir which is linked into each release
+- creates (stub) /var/www/[domain]/.env file which is linked into each release. Tweak this to your needs.
+
+
 
 - generates a ```puller``` script (in /var/www/[domain]) to pull a version (tag) from the repository and release it
 - generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
-
 - uses ```puller``` to release the initial tag into production
 
 Example:
-    ```addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```
-    Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
+    
+```$ addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```        
+Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
 
 #### puller
-Usage: puller [tag]
+Usage: ```$ puller [tag]```
 - Creates a new release in the releases directory and use ```git archive``` to download the release
 - create symbolic links of ```/var/www/[domain]/storage``` and ```/var/www/[domain]/.env``` into the release
 - runs ```composer install```
