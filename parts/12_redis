@@ -5,8 +5,9 @@
 logline "12.00 redis START"
 
 logline "12.01 Redis Server install"
-echo -n "redis installation is optional. Install Redis [y/N]=>" && read doredis
-if [ "$doredis" == "y" ]; then
+echo -n "redis installation is optional. Install Redis [Y/n]=>" && read doredis
+if [ ! "$doredis" == "n" ]; then
+	logline "12.02 Installing redis"
 	yum -d1 -f install redis
 	systemctl enable redis
 	service redis start

@@ -27,8 +27,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.10.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.10
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.11.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.11
 ./setup_full
 ```
 
@@ -66,7 +66,7 @@ Installs node, npm and yarn
 #### 09 mysql / mariadb
 installs mariadb and sets it up for production
 
-* MariaDB asks some questions during install, like the root password
+* MariaDB asks some questions during install, like the root password to be used
 
 #### 10 nginx
 set up nginx for php-fpm and prepare for multiple virtual hosts with the sites-enabled/sites-available pattern
