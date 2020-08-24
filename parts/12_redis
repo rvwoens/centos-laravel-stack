@@ -1,0 +1,16 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "12.00 redis START"
+
+logline "12.01 Redis Server install"
+echo -n "redis installation is optional. Install Redis [y/N]=>" && read doredis
+if [ "$doredis" == "y" ]; then
+	yum -d1 -f install redis
+	systemctl enable redis
+	service redis start
+fi
+
+logline "12.99 redis END"
+

@@ -119,7 +119,7 @@ else
 	read rollback
 	if [ "$rollback" == "y" ]; then
 		echo "Removing $WWWSITE "
-		rm -Rf $WWWSITE
+		sudo rm -Rf $WWWSITE
 		echo "Rolled back"
 		exit 1
 	fi
