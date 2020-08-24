@@ -13,7 +13,7 @@ echo "##########################################################"
 . ./parts/08_node_npm
 . ./parts/09_mariadb_mysql
 . ./parts/10_nginx
-. ./parts/11_gitrepo
+. ./parts/11_laravel
 
 echo "##########################################################"
 echo "FULL setup ready"

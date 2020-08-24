@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. ${BASH_SOURCE%/*}/00_settings
+
+logline "11.00 laravel START"
+
+logline "11.01 create /var/www for laravel apps using Zero Downtime Deploy"
+# not much else to do. The rest is done using addzhost
+mkdir -p /var/www
+
+echo "Use addzhost to add a project (in ~/bin of $username)"
+
+logline "11.99 laravel END"
+

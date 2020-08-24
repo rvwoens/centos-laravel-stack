@@ -1,4 +1,4 @@
-## simple centos/nginx/php-fpm/node/npm/yarn/composer stack
+## simple Centos/Nginx/Php-fpm/node/composer stack for Zero-Downtime deployment
 [![GitHub Release](https://img.shields.io/github/v/release/rvwoens/centos-laravel-stack.svg?style=flat)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
@@ -13,35 +13,34 @@
 * Php fpm & cli, composer  
 * Node, npm, yarn
 * Basic security 
-* A git repo for pushing deployments 
+* Add laravel projects with Zero-downtime deployment 
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
-The git repository setup makes it very easy to deploy a product version to the server by creating a remote repo and push the branch/tag to the server.  
+The Zero-downtime deployment setup makes it very easy to deploy a product version on the server by by calling the ```puller``` script   
 
 ### how to start
 
-* bring up a centos 8 server somewhere
+* bring up a bare centos 8 server somewhere
 * ssh as root and run:
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.40.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.40
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.41.tar.gz | tar -xz
+cd centos-laravel-stack-1.0.41
 ./setup_full
 
 ```
 
 Now you can run complete setups:
 
-- setup_clean (part 01..06 only) The clean setup does not install php, mariadb, node, nginx
-- setup_full (part 01..11)
-
-or you can only install part of the setup from the parts directory
+- ```setup_full``` (part 01..11)
+- Optionally run ```setup_clean``` (part 01..06 only) The clean setup does not install php, mariadb, node, nginx
+- Manually only install part of the setup from the parts directory for instance all parts except part ```08_node_npm```
 
 ### parts
 
-parts are numbered to show the order in which they should be called.
+parts are numbered to show the order in which they should be run.
 
 #### 01 user create
 create the default user and allow sudo. Block using passwords and only allow access using your public key for security.
@@ -53,82 +52,79 @@ create the default user and allow sudo. Block using passwords and only allow acc
 changes the hostname
 
 #### 03 repos and yums
-Add remi and epel repo, updates the system and yums the basics
+Add remi and epel repo, updates the system and ```yum``` the basics
 
 #### 04 root password
 secures the root user
 
 #### 05 security
-firewalls, sshd security and fail2ban
+firewalls, sshd security and fail2ban - disable password logins and secure it further with ```fail2ban```
 
 #### 06 global settings
-color prompts, timezone settings, ntp server, fortune and cowsay (important!)
+color prompts, timezone settings, ntp server, fortune and cowsay (just for fun)
 
 #### 07 php
 Set up php 74 including fpm and composer
 
 #### 08 node and npm
-Installs node and npm
+Installs node, npm and yarn
 
 #### 09 mysql / mariadb
 installs mariadb and sets it up for production
 
-* MariaDB asks some questions during install
+* MariaDB asks some questions during install, like the root password
 
 #### 10 nginx
-set up nginx for php-fpm and multiple virtual hosts
+set up nginx for php-fpm and prepare for multiple virtual hosts with the sites-enabled/sites-available pattern
 
-#### 11 git repository
-It's very convenient to use a git repository on your server for deployment of new versions.
-* A directory is created at ```~/git``` on the user account (the user as entered in part 01) where all deployment repositories are located.
-* The git work directory is located at ```/var/www/[git repo domain]``` so checking out results in a new version deployed publically.
-* Extra hooks are provided to automatically check out the tag or branch that is pushed. So you only need to push a release, the rest is automatic.
-
-You can also create a script in your project root directory called ```production_deploy``` that is called after the checkout, for instance to do migrations.
+#### 11 laravel
+Actually no laravel project is installed, but everything is prepared for adding a zero-downtime-deployment project using the ```addzhost``` command
 
 #### Finally
-logout as root
+logout as root. At this moment the server is ready for project deployments but none is deployed yet.
 
-#### Adding new virtual host for a domain
+### Adding new laravel app with Zero Downtime Deployment
 Log in as the default (created) user and run
-
 ```
-    addvhost <<domain>>
+    addzhost <<domain>> <<git repository>> <<initial tag>>
 ```
 
-- adds /var/www/<domain> for the laravel app (make sure to configure DNS to the IP of this server)
+- adds /var/www/[domain] for the laravel app (make sure to configure DNS to the IP of this server)
 - creates a nginx config in /etc/nginx/sites-available and enables it
-- creates an empty git repository under ~/git/<domain>
-- creates a receive-hook for this repository so it automatically updates the laravel app at /var/www/<domain> after a push
+- adds /var/www/[domain]/releases for each inidividual release
+- adds /var/www/[domain]/storage which is linked into each release
+- adds /var/www/[domain]/.env which is linked into each release
 
-On the development machine just add:
-```
-git remote add web ssh://<user>@<host>/~/git/<domain>
-git push web master
-or
-git push web <tag|branchname>
-```
-and the pushed tag/branch is automatically checked out to you server's path and
-updated. 
+- generates a ```puller``` script (in /var/www/[domain]) to pull a version (tag) from the repository and release it
+- generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
 
-You can create a custom post-deployment script called ```production_deploy``` with your own artisan/composer/npm commands.
+- uses ```puller``` to release the initial tag into production
+
+Example:
+    ```addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```
+    Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
+
+#### puller
+Usage: puller [tag]
+- Creates a new release in the releases directory and use ```git archive``` to download the release
+- create symbolic links of ```/var/www/[domain]/storage``` and ```/var/www/[domain]/.env``` into the release
+- runs ```composer install```
+- You can create a custom post-deployment script called ```after_deploy``` with your own artisan/composer/npm commands.
 a typical production_deploy could look like this 
-```
-echo "DEPLOY"
-echo ">>>>>>>>> artisan DOWN"
-php artisan down
-echo ">>>>>>>>> composer INSTALL"
-composer install
-echo ">>>>>>>>> artisan MIGRATE"
-php artisan migrate --force
-echo ">>>>>>>>> yarn INSTALL"
-yarn install
-echo ">>>>>>>>> yarn run PRODUCTION"
-yarn run production
-echo ">>>>>>>>> artisan UP"
-php artisan up
-```
-Make sure ```production_deploy``` is executable.
+    ```
+    echo "DEPLOY"
+    php artisan migrate --force
+    yarn install
+    yarn run production
+    ```
+    Make sure ```after_deploy``` is executable.
+- Makes sure everything has the right chown and chmod applied
+- swaps the /var/www/[domain]/current link towards the new release to make it available with zero downtime
+
+#### rollback
+Usage: rollback [tag]
+- swaps the /var/www/[domain]/current link to the old release to make it available with zero downtime
+
 
 ### extra utilities in ~/bin
 * artisan - make sure you only need to type 'artisan' (on any laravel top directory)
