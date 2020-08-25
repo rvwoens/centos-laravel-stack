@@ -27,8 +27,8 @@ The Zero-downtime deployment setup makes it very easy to deploy a product versio
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.12.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.12
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.13.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.13
 ./setup_full
 ```
 
@@ -86,17 +86,17 @@ Log in as the default (created) user and run
     addzhost <<domain>> <<git repository>> <<initial tag>>
 ```
 
-- adds /var/www/[domain] for the laravel app (make sure to configure DNS to the IP of this server)
-- creates a nginx config in /etc/nginx/sites-available and enables it
-- creates /var/www/[domain]/releases dir for each inidividual release
-- creates /var/www/[domain]/storage dir which is linked into each release
-- creates (stub) /var/www/[domain]/.env file which is linked into each release. Tweak this to your needs.
+- adds ```/var/www/[domain]``` for the laravel app (make sure to configure DNS to the IP of this server)
+- creates a nginx config in ```/etc/nginx/sites-available``` and enables it
+- creates ```/var/www/[domain]/releases``` dir for each inidividual release
+- creates ```/var/www/[domain]/storage``` dir which is linked into each release
+- creates (stub) ```/var/www/[domain]/.env``` file which is linked into each release. Tweak this to your needs.
 
 
 
 - generates a ```puller``` script (in /var/www/[domain]) to pull a version (tag) from the repository and release it
 - generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
-- uses ```puller``` to release the initial tag into production
+- uses ```puller``` to release the initial tag into production. if it fails you can rollback everything and try again.
 
 #### Note:
 You need access privileges from this server on the repository. 
@@ -109,7 +109,7 @@ Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure
 
 #### puller
 Usage: ```$ puller [tag]```
-- Creates a new release in the releases directory and use ```git archive``` to download the release
+- Creates a new release in the releases directory and uses ```git archive``` to download the release
 - create symbolic links of ```/var/www/[domain]/storage``` and ```/var/www/[domain]/.env``` into the release
 - runs ```composer install```
 - You can create a custom post-deployment script called ```after_deploy``` with your own artisan/composer/npm commands.
@@ -124,6 +124,17 @@ a typical production_deploy could look like this
 - Makes sure everything has the right chown and chmod applied
 - swaps the /var/www/[domain]/current link towards the new release to make it available with zero downtime
 
+If any of the steps failed ```puller``` aborts before making the release current.
+
+You can call ```puller``` from your local development machine for further integration:
+
+```
+server=[user]@[host]
+dir=[deploy directory]
+tag=`git describe --abbrev=0 --tags`    # latest tag
+echo "$dir/puller $tag;" | ssh $server
+```
+
 #### rollback
 Usage: rollback [tag]
 - swaps the /var/www/[domain]/current link to the old release to make it available with zero downtime
@@ -133,18 +144,6 @@ Usage: rollback [tag]
 * clear-laravel -  clears all possible caches and restores path permissions
 * logtail - tails the latest laravel log for a live logview (from any laravel top directory)
 * dbRemote2local - copy a remote mysql database to a local database
-
-### Tip
-Create a local script called ```pusher``` on your dev machine to run puller remotely after committing:
-```
-ssh $HOST -t -t << ENDSSH
-cd $DIR
-./puller $NEWTAG
-exit
-ENDSSH
-```
-
-
 
 
  
