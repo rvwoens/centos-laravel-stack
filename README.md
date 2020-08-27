@@ -6,17 +6,18 @@
 
 ### Installs a fresh server with
 [![Centos version](https://img.shields.io/badge/CentOS-8-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Centos version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Centos version](https://img.shields.io/badge/Nginx-1.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Centos version](https://img.shields.io/badge/Node-12.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Centos version](https://img.shields.io/badge/Redis-5.0-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![PHP version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![NGINX version](https://img.shields.io/badge/Nginx-1.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Node version](https://img.shields.io/badge/Node-12.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Redis version](https://img.shields.io/badge/Redis-5.0-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS 
 * Nginx and virtual hosts
 * Php fpm & cli, composer  
 * Node, npm, yarn
 * Redis 
 * Basic security 
-* Add (multiple) laravel projects with Zero-Downtime deployment 
+* Add (multiple) laravel projects (any laravel version) with Zero-Downtime deployment 
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
@@ -29,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.15.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.15
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.16.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.16
 ./setup_full
 ```
 
