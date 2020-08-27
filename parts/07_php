@@ -35,8 +35,11 @@ logline "07.03 fpm service"
 phpconfdir=`php74 --ini | grep "Configuration File" | grep "Path" | grep -o -e '/etc.*'`
 phpfpmconf=$phpconfdir/php-fpm.d/www.conf
 phpfpmconftemp=`mktemp`
+# use tcp for fastcgi and change user/group to nginx to make it equal to nginx service
 cat $phpfpmconf |
-  sed -e "s/listen =/\nlisten=127.0.0.1:9000\n;listen =/" >$phpfpmconftemp
+  sed -e "s/listen =/\nlisten=127.0.0.1:9000\n;listen =/" |
+  sed -e "s/user =/\nuser = nginx\n;user =/" |
+  sed -e "s/group =/\ngroup = nginx\n;group =/" >$phpfpmconftemp
 mv -f $phpfpmconftemp $phpfpmconf
 
 ## enable php fpm service

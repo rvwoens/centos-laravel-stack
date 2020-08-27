@@ -1,4 +1,4 @@
-## simple Centos/Nginx/Php-fpm/node/composer stack for Zero-Downtime deployment
+## simple Centos Laravel stack for Zero-Downtime deployment
 [![GitHub Release](https://img.shields.io/github/v/release/rvwoens/centos-laravel-stack.svg?style=flat)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
@@ -7,7 +7,9 @@
 ### Installs a fresh server with
 [![Centos version](https://img.shields.io/badge/CentOS-8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Centos version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Centos version](https://img.shields.io/badge/Node-12-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Centos version](https://img.shields.io/badge/Nginx-1.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Centos version](https://img.shields.io/badge/Node-12.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Centos version](https://img.shields.io/badge/Redis-5.0-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS 
 * Nginx and virtual hosts
 * Php fpm & cli, composer  
@@ -18,21 +20,82 @@
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
-The Zero-downtime deployment setup makes it very easy to deploy a product version on the server by calling the generated ```puller``` script   
+Very easy project deployment by calling the project's  ```puller``` script   
 
-### how to start
+### how to install
 
 * bring up a bare centos 8 server somewhere
 * ssh as root and run:
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.13.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.13
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.14.tar.gz | tar -xz
+cd centos-laravel-stack-2.0.14
 ./setup_full
 ```
 
-### parts
+That's it. Now you can add laravel apps:
+
+### Add a new laravel app with Zero Downtime Deployment
+Log in as the default (created) user and run
+```
+    addzhost <<domain>> <<git repository>> <<initial tag>>
+```
+
+#### Note:
+You need access privileges from this server on the repository. 
+- For github or gitlab, Go to settings->ssh keys and add the contents of ```~/.ssh/id_rsa.pub``` to a new ssh key.
+
+#### Example:
+    
+```$ addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```        
+Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
+
+
+- adds ```/var/www/myapp.example.com``` for the laravel app (make sure to configure DNS to the IP of this server)
+- creates a nginx config in ```/etc/nginx/sites-available``` and enables it
+- creates ```/var/www/myapp.example.com/releases``` dir for each inidividual release
+- creates ```/var/www/myapp.example.com/storage``` dir which is linked into each release
+- creates (stub) ```/var/www/myapp.example.com/.env``` file which is linked into each release. Tweak this to your needs.
+
+
+- generates a ```puller``` script (in /var/www/myapp.example.com) to pull a version (tag) from the repository and release it
+- generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
+- uses ```puller``` to release the initial tag into production. if it fails you can rollback everything and try again.
+
+#### puller
+Usage: ```$ puller [tag]```
+- Creates a new release in the releases directory and uses ```git archive``` to download the release
+- create symbolic links of ```/var/www/[domain]/storage``` and ```/var/www/[domain]/.env``` into the release
+- runs ```composer install```
+- You can create a custom post-deployment script called ```after_deploy``` with your own artisan/composer/npm commands.
+a typical production_deploy could look like this 
+    ```
+    echo "DEPLOY"
+    php artisan migrate --force
+    yarn install
+    yarn run production
+    ```
+    Make sure ```after_deploy``` is executable.
+- Makes sure everything has the right chown and chmod applied
+- swaps the /var/www/[domain]/current link towards the new release to make it available with zero downtime
+
+If any of the steps failed ```puller``` aborts before making the release current.
+
+You can call ```puller``` from your local development machine for further integration:
+
+```
+server=[user]@[host]
+dir=[deploy directory]
+tag=`git describe --abbrev=0 --tags`    # latest tag
+echo "$dir/puller $tag;" | ssh $server
+```
+
+#### rollback
+Usage: rollback [tag]
+- swaps the /var/www/[domain]/current link to the old release to make it available with zero downtime
+
+### Overview of individual installation parts run by ```setup_full```
 
 parts are numbered to show the order in which they should be run.
 
@@ -80,64 +143,6 @@ Optionally install redis
 #### Finally
 logout as root. At this moment the server is ready for project deployments but none is deployed yet.
 
-### Adding new laravel app with Zero Downtime Deployment
-Log in as the default (created) user and run
-```
-    addzhost <<domain>> <<git repository>> <<initial tag>>
-```
-
-- adds ```/var/www/[domain]``` for the laravel app (make sure to configure DNS to the IP of this server)
-- creates a nginx config in ```/etc/nginx/sites-available``` and enables it
-- creates ```/var/www/[domain]/releases``` dir for each inidividual release
-- creates ```/var/www/[domain]/storage``` dir which is linked into each release
-- creates (stub) ```/var/www/[domain]/.env``` file which is linked into each release. Tweak this to your needs.
-
-
-
-- generates a ```puller``` script (in /var/www/[domain]) to pull a version (tag) from the repository and release it
-- generates a ```rollback``` script to roll back to a previous release (any of the releases available in the releases dir)
-- uses ```puller``` to release the initial tag into production. if it fails you can rollback everything and try again.
-
-#### Note:
-You need access privileges from this server on the repository. 
-- For github or gitlab, Go to settings->ssh keys and add the contents of ```~/.ssh/id_rsa.pub``` to a new ssh key.
-
-#### Example:
-    
-```$ addzhost myapp.example.com git@gitlab.com:myprojects/myapp.git v1.0.3```        
-Now you can browse to myapp.example.com and enjoy your v1.0.3 release (make sure DNS has been set up)
-
-#### puller
-Usage: ```$ puller [tag]```
-- Creates a new release in the releases directory and uses ```git archive``` to download the release
-- create symbolic links of ```/var/www/[domain]/storage``` and ```/var/www/[domain]/.env``` into the release
-- runs ```composer install```
-- You can create a custom post-deployment script called ```after_deploy``` with your own artisan/composer/npm commands.
-a typical production_deploy could look like this 
-    ```
-    echo "DEPLOY"
-    php artisan migrate --force
-    yarn install
-    yarn run production
-    ```
-    Make sure ```after_deploy``` is executable.
-- Makes sure everything has the right chown and chmod applied
-- swaps the /var/www/[domain]/current link towards the new release to make it available with zero downtime
-
-If any of the steps failed ```puller``` aborts before making the release current.
-
-You can call ```puller``` from your local development machine for further integration:
-
-```
-server=[user]@[host]
-dir=[deploy directory]
-tag=`git describe --abbrev=0 --tags`    # latest tag
-echo "$dir/puller $tag;" | ssh $server
-```
-
-#### rollback
-Usage: rollback [tag]
-- swaps the /var/www/[domain]/current link to the old release to make it available with zero downtime
 
 ### extra utilities in ~/bin 
 * artisan - shortcut to ```php artisan```
