@@ -143,10 +143,10 @@ for f in $VHOSTDIR/*.conf; do
         v=`basename $f | grep -o "[0-9]*" | head -1`
         #echo "$f -> $v"
         if [ "$f" == "$VHOSTDIR/$v-$SERVERNAME.conf" ]; then
-                echo "vhost already exists: $f - press enter to continue and remove old"
-                read
-                sudo rm $f
-		sudo rm /etc/nginx/sites-enabled/$v-$SERVERNAME.conf
+            echo "vhost already exists: $f - press enter to continue and move old to $f.org"
+            read
+            sudo mv $f $f.org
+			sudo rm /etc/nginx/sites-enabled/$v-$SERVERNAME.conf
         fi
         if [ 0$v -gt 0$max ]; then
                 max=$v

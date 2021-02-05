@@ -48,10 +48,20 @@ chmod u-w /etc/sudoers
 
 logline "01.07 copy user scripts"
 cp -R ${BASH_SOURCE%/*}/userbin/* /home/$username/bin
-chown -R $username:users /home/$username/bin
-chmod a+x /home/$username/bin/*
 
-logline "01.08 create user crontab"
+logline "01.08 install the indispensable 'z' tool"
+# do we have wget yet?
+yum -d1 -y install wget
+# install https://github.com/rupa/z
+wget https://raw.githubusercontent.com/rupa/z/master/z.sh
+mv ./z.sh /home/$username/bin
+printf "\n\n#initialize Z (https://github.com/rupa/z) \n. ~/bin/z.sh \n\n" >> .bashrc
+
+logline "01.09 ~/bin: change permissions and make executabe"
+chown -R $username:users /home/$username/bin
+chmod -R a+x /home/$username/bin
+
+logline "01.10 create user crontab"
 cp -R ${BASH_SOURCE%/*}/usercron/* /home/$username/crontab
 chown -R $username:users /home/$username/crontab
 chmod a+x /home/$username/crontab/every*

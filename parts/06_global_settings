@@ -8,8 +8,14 @@ logline "06.01 color prompt"
 echo 'export PS1="\[\e[31;1m\]\h \[\e[0;34m\]\w\[\e[39m\] \[\e[0;32m\]\u\[\e[39m\] \\$ "' >> /etc/profile.d/prompt.sh
 
 ## set local timezone
-logline "06.02 set timezone"
-timedatectl set-timezone Europe/Amsterdam
+logline "06.02 set local timezone"
+echo -n "What timezone do you want (enter for UTC) =>"
+read timezone
+if [ "$timezone" == "" ]; then
+	timedatectl set-timezone UTC
+else
+	timedatectl set-timezone $timezone
+fi
 
 logline "06.03 Chrony server as NTP"
 dnf install -y chrony
