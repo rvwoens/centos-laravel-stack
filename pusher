@@ -1,10 +1,14 @@
 LASTTAG=`git describe --abbrev=0 --tags`
-echo "Current version tag $LASTTAG"
+echo "Current version tag $LASTTAG press key"
+if [ -z $1 ]; then
+	echo "Usage: pusher <override-comment> [<override-version>]"
+	echo "Use version format vX.X.XX"
+	exit
+fi
 if [ -z $2 ]; then
 	NEWTAG=`newversion -x $LASTTAG`
 else
-	echo "Usage: pusher <override-comment> <override-version>"
-	echo "Use version format vX.X.XX"
+	echo "Use version $1"
 	NEWTAG=$2
 fi
 # tag with "v" removed
