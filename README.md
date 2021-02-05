@@ -30,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v2.0.16.tar.gz | tar -xz
-cd centos-laravel-stack-2.0.16
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/1.tar.gz | tar -xz
+cd centos-laravel-stack-
 ./setup_full
 ```
 
