@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Make sure you are on the release directory of your project"
+echo "Remove THESE releases? [y/N]"
+ls -td */ | tail -n +4
+read yesno
+if [ "$yesno" == "y" ]; then
+	echo
+	ls -td */ | tail -n +4 | xargs --verbose rm -Rf
+fi
+
