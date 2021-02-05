@@ -10,7 +10,7 @@
 [![NGINX version](https://img.shields.io/badge/Nginx-1.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Node version](https://img.shields.io/badge/Node-12.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Redis version](https://img.shields.io/badge/Redis-5.0-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7%20v8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS 
 * Nginx and virtual hosts
 * Php fpm & cli, composer  
