@@ -1,5 +1,5 @@
 ## simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.0.11-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.0.12-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -30,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.11.tar.gz | tar -xz
-cd centos-laravel-stack-3.0.11
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.12.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.12
 ./setup_full
 ```
 
@@ -128,13 +128,13 @@ firewalls, sshd security and fail2ban - disable password logins and secure it fu
 color prompts, timezone settings, ntp server, fortune and cowsay (just for fun)
 
 #### 07 php
-Set up php 74 including fpm and composer
+Set up php including fpm and composer
 
 #### 08 node and npm
-Installs node, npm and yarn
+Optionally Installs node, npm and yarn
 
 #### 09 mysql / mariadb
-installs mariadb and sets it up for production
+Optionally installs mariadb and sets it up for production
 
 * MariaDB asks some questions during install, like the root password to be used
 
@@ -142,13 +142,13 @@ installs mariadb and sets it up for production
 set up nginx for php-fpm and prepare for multiple virtual hosts with the sites-enabled/sites-available pattern
 
 #### 11 laravel
-Actually no laravel project is installed, but everything is prepared for adding a zero-downtime-deployment project using the ```addzhost``` command
+Optionally it can install a default laravel project with zero-downtime-deployment project using the ```addzhost``` command
 
 #### 12 redis
 Optionally install redis
 
 #### Finally
-logout as root. At this moment the server is ready for project deployments but none is deployed yet.
+logout as root. At this moment the server is ready for project deployments.
 
 
 ### extra utilities in ~/bin
@@ -156,6 +156,7 @@ logout as root. At this moment the server is ready for project deployments but n
 * clear-laravel -  clears all possible caches and restores path permissions
 * logtail - tails the latest laravel log for a live logview (from any laravel top directory)
 * dbRemote2local - copy a remote mysql database to a local database
-
+* release-cleanup - removes old releases, run in the release dir of a project
+* 
 
  

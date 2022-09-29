@@ -40,13 +40,14 @@ firewall-cmd --reload
 # show overview
 firewall-cmd --list-all
 
-logline "05.03 fail2ban"
+logline "05.03 fail2ban aggressive sshd protection"
 yum -y install fail2ban
 cat <<-'EOF' >/etc/fail2ban/jail.local
 	[sshd]
 	enabled = true
 	maxretry = 3
 	bantime = 86400
+	mode = aggressive
 EOF
 systemctl start fail2ban
 systemctl enable fail2ban
