@@ -1,5 +1,5 @@
 ## simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.0.7-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.0.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -30,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.7.tar.gz | tar -xz
-cd centos-laravel-stack-3.0.7
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.8.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.8
 ./setup_full
 ```
 
@@ -46,6 +46,7 @@ Log in as the default (created) user and run
 #### Note:
 You need access privileges from this server on the repository.
 - For github or gitlab, Go to settings->ssh keys and add the contents of ```~/.ssh/id_rsa.pub``` to a new ssh key.
+- As an alternative you can use the readonly ```https://github.com/<user>/<repo>.git``` (default) repo url, but in this case the puller will just use a git clone
 
 #### Example:
 
