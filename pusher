@@ -21,7 +21,8 @@ echo "version=$NEWTAG\ndate=\"$(date)\"" > ./VERSION
 rmtemp=`mktemp`
 cat README.md | \
 	sed -e "s/archive\/[^t]*.tar.gz/archive\/$NEWTAG.tar.gz/" | \
-	sed -e "s/cd centos-laravel-stack-.*/cd centos-laravel-stack-$NEWTAGSHORT/" >$rmtemp
+	sed -e "s/cd centos-laravel-stack-.*/cd centos-laravel-stack-$NEWTAGSHORT/" | \
+	sed -e "s/img.shields.io/badge/release-.*-blue/img.shields.io/badge/release-$NEWTAGSHORT-blue/"   >$rmtemp
 mv -f $rmtemp README.md
 
 echo ">>>> Creating new version tag $NEWTAG"
