@@ -2,7 +2,10 @@
 echo "##########################################################"
 echo "Centos server install -- FULL SETUP"
 echo "##########################################################"
-
+if [ "$EUID" -ne  0 ];then
+    echo "!!!! Need to run this script as root! please login as root or do 'sudo su -' "
+    exit
+fi
 . ./parts/01_user_create
 . ./parts/02_set_hostname
 . ./parts/03_repos_yums
@@ -22,7 +25,7 @@ echo "##########################################################"
 echo "Need to reboot to check if everything comes up as expected."
 echo "Then login as $username, not as root! Press a key to reboot"
 myip=`curl -s ifconfig.me`
-echo "after rebooting you can try http://$myip "
+echo "after rebooting you could try http://$myip "
 read
 reboot
 
