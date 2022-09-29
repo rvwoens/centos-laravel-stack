@@ -4,7 +4,7 @@
 
 logline "09.00 mariadb mysql START"
 echo -n "MYSQL is optional. Install mysql [Y/n]=>" && read domysql
-if [ ! "$domysql" == "n" ]; then
+if [ ! "$domysql" = "n" ]; then
 
   logline "09.01 yum mariadb"
   ## yum mariadb and enable

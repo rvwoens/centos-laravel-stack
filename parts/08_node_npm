@@ -5,7 +5,7 @@
 logline "08.00 nvm and node and npm START"
 
 echo -n "Node/nvm/npm is optional. Install  [Y/n]=>" && read donode
-if [ ! "$donode" == "n" ]; then
+if [ ! "$donode" = "n" ]; then
 
   logline "08.01 install nvm - the node manager"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
