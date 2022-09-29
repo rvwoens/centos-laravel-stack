@@ -34,11 +34,12 @@ pip3 install fortune
 git clone https://github.com/bmc/fortunes.git /usr/local/share/fortunes
 #yum -y install cowsay
 # need to install from source..
+
 cd /usr/local/src
 git clone https://github.com/schacon/cowsay.git
 cd cowsay
 sh install.sh
-cd ~
+cd $INSTALLPWD
 echo "fortune /usr/local/share/fortunes/fortunes | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
 
 logline "06.05 additional yum installs"

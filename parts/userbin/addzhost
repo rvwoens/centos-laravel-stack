@@ -196,7 +196,7 @@ echo "Adding Laravel schedule to crontab"
 cd ~/crontab
 echo "* * * * * php $WWWSITE/current/artisan schedule:run >> /dev/null 2>&1" >>crondef
 crontab crondef
-cd ~
+cd $INSTALLPWD
 
 myip=`curl -s ifconfig.me`
 echo "-------------------------------------------------------------"

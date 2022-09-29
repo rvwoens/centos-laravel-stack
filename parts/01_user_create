@@ -8,7 +8,7 @@ while [ -z "$username" ]; do
 done
 
 while [ -z "$pubkey" ]; do
-        echo "Paste your public key for ssh access"
+        echo "Paste your public key for ssh access (use cat ~/.ssh/id_rsa.pub on your local machine)"
         read pubkey
 done 
 

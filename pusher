@@ -1,6 +1,6 @@
 LASTTAG=`git describe --abbrev=0 --tags`
 echo "Current version tag $LASTTAG press key"
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 	echo "Usage: pusher <override-comment> [<override-version>]"
 	echo "Use version format vX.X.XX"
 	exit
