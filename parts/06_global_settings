@@ -25,13 +25,20 @@ systemctl enable chronyd
 
 logline "06.04 Python 3 - possibly already installed"
 dnf -y install python3
+dnf -y install python3-pip
 
 ### yum fortune and cowsay
 logline "06.04 install fortune and cowsay"
 # fortune is now a python app (fortune-mod is no longer distributed and a pain to cmake)
 pip3 install fortune
 git clone https://github.com/bmc/fortunes.git /usr/local/share/fortunes
-yum -y install cowsay
+#yum -y install cowsay
+# need to install from source..
+cd /usr/local/src
+git clone https://github.com/schacon/cowsay.git
+cd cowsay
+sh install.sh
+cd ~
 echo "fortune /usr/local/share/fortunes/fortunes | cowsay -W 100 -f small" >/etc/profile.d/cowsay.sh
 
 logline "06.05 additional yum installs"
