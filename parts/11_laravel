@@ -5,10 +5,19 @@
 logline "11.00 laravel START"
 
 logline "11.01 create /var/www for laravel apps using Zero Downtime Deploy"
-# not much else to do. The rest is done using addzhost
-mkdir -p /var/www
 
-echo "!!! Use addzhost to add a project (located in ~/bin of $username)"
+mkdir -p /var/www
+myip=`curl -s ifconfig.me`
+
+logline "11.02 create a simple (github/laravel/laravel) site on http://$myip using addzhost?"
+
+echo -n "A default laravel webite (https://github.com/laravel/laravel) is optional. Install default webite @ http://$myip [Y/n]=>" && read dolaravelwebsite
+if [ ! "$dolaravelwebsite" == "n" ]; then
+  # use simple git clone for demo website
+  su - $username addzhost $myip https://github.com/laravel/laravel.git
+fi
+
+echo "!!! Use addzhost to add projects (located in ~/bin of $username)"
 
 logline "11.99 laravel END"
 

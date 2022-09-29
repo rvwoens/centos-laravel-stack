@@ -19,10 +19,12 @@ echo "##########################################################"
 echo "##########################################################"
 echo "FULL setup ready"
 echo "##########################################################"
-echo "Need to reboot for SELinux config change. Press a key to reboot"
+echo "Need to reboot to check if everything comes up as expected."
 echo "Then login as $username, not as root! Press a key to reboot"
+myip=`curl -s ifconfig.me`
+echo "after rebooting you can try http://$myip "
 read
-reboot now
+reboot
 
 
 

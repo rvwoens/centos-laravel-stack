@@ -3,21 +3,27 @@
 . ${BASH_SOURCE%/*}/00_settings
 
 logline "08.00 nvm and node and npm START"
-logline "08.01 install nvm - the node manager"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-source ~/.bash_profile
 
-logline "08.02 install node and npm"
-# for latest version use
-# nvm list-remote
+echo -n "Node/nvm/npm is optional. Install  [Y/n]=>" && read donode
+if [ ! "$donode" == "n" ]; then
 
-nvm install $NODEVER
+  logline "08.01 install nvm - the node manager"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+  source ~/.bash_profile
+
+  logline "08.02 install node and npm"
+  # for latest version use
+  # nvm list-remote
+
+  nvm install $NODEVER
 
 
-logline "08.03 yarn"
-npm install --global yarn
-#logline "08.02 gulp"
-#npm install --global gulp-cli
+  logline "08.03 yarn"
+  npm install --global yarn
+  #logline "08.02 gulp"
+  #npm install --global gulp-cli
+
+fi
 
 logline "08.99 node npm END"
 

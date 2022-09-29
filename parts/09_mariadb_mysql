@@ -3,32 +3,35 @@
 . ${BASH_SOURCE%/*}/00_settings
 
 logline "09.00 mariadb mysql START"
+echo -n "MYSQL is optional. Install mysql [Y/n]=>" && read domysql
+if [ ! "$domysql" == "n" ]; then
 
-logline "09.01 yum mariadb"
-## yum mariadb and enable
-yum -d1 -y install mariadb-server mariadb
+  logline "09.01 yum mariadb"
+  ## yum mariadb and enable
+  yum -d1 -y install mariadb-server mariadb
 
-logline "09.02 enable and start"
-systemctl enable mariadb
-service mariadb start
+  logline "09.02 enable and start"
+  systemctl enable mariadb
+  service mariadb start
 
-#### not neccesary: mysql_secure_isntallation does all this
-#while [ -z "$mysqlpwd" ]; do
-#	echo -n "Enter your mysql (mariadb) root password =>" && read mysqlpwd
-#done
-#mysqladmin -u root password "$mysqlpwd"
-#mysql -u root -p$mysqlpwd <<-EOF
-#	UPDATE mysql.user SET Password = PASSWORD('$mysqlpwd') WHERE User = 'root';
-#
-#	FLUSH PRIVILEGES;
-#EOF
-####
+  #### not neccesary: mysql_secure_isntallation does all this
+  #while [ -z "$mysqlpwd" ]; do
+  #	echo -n "Enter your mysql (mariadb) root password =>" && read mysqlpwd
+  #done
+  #mysqladmin -u root password "$mysqlpwd"
+  #mysql -u root -p$mysqlpwd <<-EOF
+  #	UPDATE mysql.user SET Password = PASSWORD('$mysqlpwd') WHERE User = 'root';
+  #
+  #	FLUSH PRIVILEGES;
+  #EOF
+  ####
 
-logline "09.03 make mysql secure"
-echo "#################### MariaDB secure installation is going to ask some questions"
-echo "#################### The current password is still empty, just press enter when asked for"
-/usr/bin/mysql_secure_installation
+  logline "09.03 make mysql secure"
+  echo "#################### MariaDB secure installation is going to ask some questions"
+  echo "#################### The current password is still empty, just press enter when asked for"
+  /usr/bin/mysql_secure_installation
 
+fi
 
 logline "09.99 mariadb END"
 
