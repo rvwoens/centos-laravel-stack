@@ -8,22 +8,24 @@ logline "03.01 add repos"
 yum -d1 -y install epel-release
 yum -d1 -y install wget
 if [ "$OS_VERSION" = "8" ]; then
-  dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    logline "03.02 Loading remi-release-8 for centos 8"
+    dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 else
+    logline "03.02 Loading remi-release-9 for centos 9"
     dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
 fi
 
 yum -q repolist
 
-logline "03.02 update system - this can take a while.."
+logline "03.03 update system - this can take a while.."
 yum -y update
 
-logline "03.03 yum some sysop and dev tools"
+logline "03.04 yum some sysop and dev tools"
 yum -d1 -y install htop iotop ncdu pv unzip gcc autoconf automake gcc-c++ make git
 ## optional BIG development install
 ## yum groupinstall "Development Tools"
 
-logline "03.04 add gh command to git for push to github (origin)"
+logline "03.05 add gh command to git for push to github (origin)"
 git config --global alias.gh '!f() { git add -A && git commit -m "${@:-incremental}" && git push; }; f'
 
 

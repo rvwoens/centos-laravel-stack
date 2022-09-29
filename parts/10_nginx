@@ -50,10 +50,10 @@ logline "10.06 create a default landing page for the machine"
 cp -R ${BASH_SOURCE%/*}/assets/homepage/* /usr/share/nginx/html
 
 logline "10.07 start services"
-service php74-php-fpm restart
+service php$PHPVER-php-fpm restart
 service nginx restart
 # create a symlink 
-ln -s /var/opt/remi/php74/log/php-fpm /var/log/php-fpm
+ln -s /var/opt/remi/php$PHPVER/log/php-fpm /var/log/php-fpm
 
 
 logline "10.99 nginx END"
