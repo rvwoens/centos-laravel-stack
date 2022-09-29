@@ -5,12 +5,12 @@
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
 
 ### Installs a fresh server with
-[![Centos version](https://img.shields.io/badge/CentOS-8-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![PHP version](https://img.shields.io/badge/PHP-7.4-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Centos version](https://img.shields.io/badge/centos-8%209%20stream-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![PHP version](https://img.shields.io/badge/PHP-8.1-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![NGINX version](https://img.shields.io/badge/Nginx-1.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Node version](https://img.shields.io/badge/Node-12.8-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Redis version](https://img.shields.io/badge/Redis-5.0-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7%20v8-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7%20v8%20v9-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS 
 * Nginx and virtual hosts
 * Php fpm & cli, composer  
@@ -25,13 +25,13 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ### how to install
 
-* bring up a bare centos 8 server somewhere
+* bring up a bare centos server somewhere (centOS 8, 9 and stream supported)
 * ssh as root and run:
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v1.0.44.tar.gz | tar -xz
-cd centos-laravel-stack-1.0.44
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.0.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.0
 ./setup_full
 ```
 

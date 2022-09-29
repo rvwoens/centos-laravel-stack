@@ -7,7 +7,12 @@ logline "03.00 install EPEL and REMI repos and yum standard packages"
 logline "03.01 add repos"
 yum -d1 -y install epel-release
 yum -d1 -y install wget
-dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+if [ "$OS_VERSION" = "8" ]; then
+  dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+else
+    dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+fi
+
 yum -q repolist
 
 logline "03.02 update system - this can take a while.."

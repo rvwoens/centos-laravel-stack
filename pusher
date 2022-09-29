@@ -16,7 +16,7 @@ NEWTAGSHORT=${NEWTAG:1}
 echo ">>>> git pull origin (CI might commit stuff)"
 git pull origin
 
-echo ">>>> Creating VERSION and udpate README"
+echo ">>>> Creating VERSION and update README"
 echo "version=$NEWTAG\ndate=\"$(date)\"" > ./VERSION
 rmtemp=`mktemp`
 cat README.md | \
