@@ -2,10 +2,7 @@
 
 . ${BASH_SOURCE%/*}/00_settings
 
-
-
 logline "07.00 install php$PHPVER from remi"
-
 
 logline "07.01 yum php"
 ## yum PHP and start fpm
@@ -49,7 +46,8 @@ mv -f $phpfpmconftemp $phpfpmconf
 
 ## enable php fpm service
 systemctl enable php$PHPVER-php-fpm
-service php$PHPVER-php-fpm start
+# not yet..
+# service php$PHPVER-php-fpm start
 
 logline "07.04 composer"
 curl -sS https://getcomposer.org/installer | php

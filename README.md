@@ -1,5 +1,5 @@
 ## simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.0.6-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.0.7-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -10,13 +10,13 @@
 [![NGINX version](https://img.shields.io/badge/Nginx-1.20.1-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Node version](https://img.shields.io/badge/Node-16.17-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Redis version](https://img.shields.io/badge/Redis-6.2-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Laravel version](https://img.shields.io/badge/Laravel-v3%20v4%20v5%20v6%20v7%20v8%20v9-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Laravel version](https://img.shields.io/badge/Laravel-v5%20v6%20v7%20v8%20v9-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS
 * Nginx and virtual hosts
 * Php fpm & cli, composer
 * Node, npm, yarn
 * Redis
-* Basic security
+* Security and Hardening
 * Add (multiple) laravel projects (any laravel version) with Zero-Downtime deployment
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
@@ -30,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.6.tar.gz | tar -xz
-cd centos-laravel-stack-3.0.6
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.7.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.7
 ./setup_full
 ```
 

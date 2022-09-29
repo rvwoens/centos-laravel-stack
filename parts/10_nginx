@@ -55,6 +55,9 @@ service nginx restart
 # create a symlink 
 ln -s /var/opt/remi/php$PHPVER/log/php-fpm /var/log/php-fpm
 
+logline "10.08 create a simple (default) laravel site"
+myip=`curl -s ifconfig.me`
+su - $username addzhost $myip https://github.com/laravel/laravel.git
 
 logline "10.99 nginx END"
 

@@ -9,6 +9,7 @@ if [ -z "$2" ]; then
 	echo "4) checks out <initial-tag> as first release or MASTER as default"
 	echo "USE FULL DOMAIN like xxyy.nl or asd.com"
 	echo "USE remote repo ssh clone address - make sure this server id_rsa.pub has access to an account that can read the repo"
+	echo "OR USE https://github.com/user/repo.git - will do a simple clone"
 	echo "Dont forget to edit the .env on the top directory!"
 	exit;
 fi
@@ -33,8 +34,16 @@ if [ -d $WWWSITE ]; then
 	exit
 fi
 
+if [[ "$GITREPO" =~ ^https://github.com ]]; then
+  GITHUB_SIMPLE_REPO=Y
+  echo "! Using SIMPLE github repo with clone"
+else
+  GITHUB_SIMPLE_REPO=N
+fi
+
 echo "Laravel app    at: $WWWSITE"
 echo "Git repository at: $GITREPO"
+
 echo "Servername       : $SERVERNAME"
 echo "Initial release  : $TAG"
 echo -n "Press return to continue >" && read
@@ -73,7 +82,11 @@ cat << EOFPULLER >$WWWSITE/puller
 	mkdir -p \$RELEASE_DIR
 	cd \$RELEASE_DIR
 	echo ">>>> Pulling git archive from $GITREPO into \$RELEASE_DIR"
-	git archive --remote=$GITREPO --format=tar \$1 | tar xf -
+	if [ $GITHUB_SIMPLE_REPO ]; then
+	  git clone $GITREPO .
+	else
+	  git archive --remote=$GITREPO --format=tar \$1 | tar xf -
+  fi
 	echo ">>>> Pulled \$1 archive. Now do some after-deploy work"
 	sudo chown $USER:nginx -R \$RELEASE_DIR
 	# standard symlinks
