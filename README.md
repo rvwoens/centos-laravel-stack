@@ -1,5 +1,5 @@
 # simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.0.13-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.0.14-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -30,12 +30,12 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.13.tar.gz | tar -xz
-cd centos-laravel-stack-3.0.13
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.14.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.14
 ./setup_full
 ```
 
-That's it. Now you can add laravel apps:
+That's it (estimated 30 minutes to run, and stops for some input). Now you can add laravel apps:
 
 ## Add a new laravel app with Zero Downtime Deployment
 Log in as the default (created) user and run
@@ -47,6 +47,22 @@ Log in as the default (created) user and run
 You need access privileges from this server on the repository.
 - For github or gitlab, Go to settings->ssh keys and add the contents of ```~/.ssh/id_rsa.pub``` to a new ssh key.
 - As an alternative you can use the readonly ```https://github.com/<user>/<repo>.git``` (default) repo url, but in this case the puller will just use a git clone
+
+### Directory structure
+The zero downtime deployment creates the following directory structure for each app:
+```
+/var/www/app-domain-name
+\_  current   - symlink to the current active release. Nginx serves from here
+\_  puller    - puller script to deploy a new release (generated)
+\_  rollback  - rollback script to go back to an old release
+\_  releases  - all releases are kept here
+| \_ 1.0.0
+| \_ 1.0.1 
+| \_ etc
+\_  storage   - main laravel storage directory. 
+|               Each release gets a storage symlink to this location
+\_ .env       - Main laravel .env symlinked into all releases
+```
 
 ### Example:
 
