@@ -30,4 +30,3 @@ git config --global alias.gh '!f() { git add -A && git commit -m "${@:-increment
 
 
 logline "03.99 repos and yums END"
-

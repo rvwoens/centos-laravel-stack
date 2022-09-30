@@ -4,6 +4,9 @@
 
 logline "08.00 nvm and node and npm START"
 
+# flush keyboard buffer
+while read -t 1 garbage; do sleep 0; done
+
 echo -n "Node/nvm/npm is optional. Install  [Y/n]=>" && read donode
 if [ ! "$donode" = "n" ]; then
 

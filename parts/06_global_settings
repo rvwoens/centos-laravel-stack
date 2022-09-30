@@ -3,6 +3,9 @@
 . ${BASH_SOURCE%/*}/00_settings
 
 logline "06.00 global settings START"
+# flush keyboard buffer
+while read -t 1 garbage; do sleep 0; done
+
 # color prompt
 logline "06.01 color prompt"
 echo 'export PS1="\[\e[31;1m\]\h \[\e[0;34m\]\w\[\e[39m\] \[\e[0;32m\]\u\[\e[39m\] \\$ "' >> /etc/profile.d/prompt.sh
