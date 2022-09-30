@@ -1,0 +1,4 @@
+staging     example@exampleserver.com               /var/www/staging-of-myapp
+prod        example@productionserver-example.com    /var/www/myapp
+betatest    my@exampleserver.com                    /var/www/betatest
+
