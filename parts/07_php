@@ -31,6 +31,8 @@ cat $phpini |
   sed -e "s/;date.timezone =/date.timezone = UTC/" |
 	sed -r "s/;cgi.fix_pathinfo=[0-9]/cgi.fix_pathinfo=0/" 	>$phpinitemp
 mv -f $phpinitemp $phpini
+# mktemp creates a rw------- file. Nead to give right to users
+chmod a+r $phpini
 
 logline "07.03 fpm service"
 #phpfpmconf=/etc/opt/remi/php74/php-fpm.d/www.conf

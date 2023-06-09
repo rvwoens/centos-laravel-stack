@@ -82,8 +82,12 @@ cat << EOFPULLER >$WWWSITE/puller
 	mkdir -p \$RELEASE_DIR
 	cd \$RELEASE_DIR
 	echo ">>>> Pulling git archive from $GITREPO into \$RELEASE_DIR"
-	if [ $GITHUB_SIMPLE_REPO ]; then
-	  git clone $GITREPO .
+	if [ "$GITHUB_SIMPLE_REPO" == "Y" ]; then
+	  if [ -z $1]; then
+	    git clone $GITREPO .
+	  else
+	    git clone --branch $1 $GITREPO .
+	  fi
 	else
 	  git archive --remote=$GITREPO --format=tar \$1 | tar xf -
   fi
