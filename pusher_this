@@ -3,6 +3,7 @@ echo "Current version tag $LASTTAG press key"
 if [ -z "$1" ]; then
 	echo "Usage: pusher <override-comment> [<override-version>]"
 	echo "Use version format vX.X.XX"
+	echo "Example: pusher_this \"new centos version suppoert\" v3.4.50"
 	exit
 fi
 if [ -z $2 ]; then
