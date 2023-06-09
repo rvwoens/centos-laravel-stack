@@ -12,6 +12,9 @@ yum -d1 -y install php$PHPVER-php-mcrypt
 yum -d1 -y install  php$PHPVER-php-pecl-imagick php$PHPVER-php-mbstring php$PHPVER-php-pecl-zip php$PHPVER-php-xml php$PHPVER-php-bcmath
 
 yum -d1 -y install  php$PHPVER-php-common php$PHPVER-php-gd
+# postgres
+yum -d1 -y install  php$PHPVER-php-pgsql
+
 
 ## make php available without '74' (could do yum-config-manager --enable remi-php74;yum install php-cli.. << !!!! NOO this installs an OTHER php7.4 on /usr/bin)
 ## NOO dont do this: https://stackoverflow.com/questions/48682572/centos-installed-php72-but-command-line-php-isn-not-working/48683067

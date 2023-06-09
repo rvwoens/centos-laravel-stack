@@ -1,5 +1,5 @@
 # simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.0.17-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.0.18-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -14,7 +14,7 @@
 * CentOS
 * Nginx and virtual hosts
 * Php fpm & cli, composer
-* Node, npm, yarn
+* Nvm, Node, npm, yarn
 * Redis
 * Security and Hardening
 * Add (multiple) laravel projects (any laravel version) with Zero-Downtime deployment
@@ -30,8 +30,8 @@ Very easy project deployment by calling the project's  ```puller``` script
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.17.tar.gz | tar -xz
-cd centos-laravel-stack-3.0.17
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.0.18.tar.gz | tar -xz
+cd centos-laravel-stack-3.0.18
 ./setup_full
 ```
 
