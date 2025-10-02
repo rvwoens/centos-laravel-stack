@@ -18,15 +18,16 @@ if [ ! "$dolaravelwebsite" == "n" ]; then
   composer create-project laravel/laravel laravel --no-interaction
   sudo chown $username:nginx -R laravel
   cd /var/www/laravel
-  chmod -R a+w storage
+  composer install
+
   echo -n "Enter your mysql (mariadb) root password =>" && read mysqlpwd
   mysql -u root -p$mysqlpwd -e "CREATE DATABASE laravel;"
-  
+
   # EOF quoted: expand bash vars
-  cat <<-'EOF' >>.env
+  cat <<-'EOF' >.env
 	APP_NAME=Laravel
 	APP_ENV=local
-	APP_KEY=base64:dzn3R7Cu/RVPplf7O9roOKPYSau3vqpO8RjssFfYdHQ=
+	APP_KEY=
 	APP_URL=http://localhost
 
 	LOG_CHANNEL=stack
@@ -40,9 +41,11 @@ if [ ! "$dolaravelwebsite" == "n" ]; then
 	DB_USERNAME=root
 	DB_PASSWORD=$mysqlpwd
 EOF
-	composer install
+	php artisan key:generate
 	php artisan migrate
-	sudo cat << EOF-nginxconf >/tmp/newconf
+    chmod -R a+w storage
+
+	sudo cat << EOF-nginxconf >/etc/nginx/sites-available/01-laravel.conf
 	server {
 	listen   80;
 	server_name _;
