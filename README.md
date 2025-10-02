@@ -1,5 +1,5 @@
 # simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.1.02-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.1.03-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -31,8 +31,8 @@ Multiple servers per project support (production, staging..) through a local ```
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.1.02.tar.gz | tar -xz
-cd centos-laravel-stack-3.1.02
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.1.03.tar.gz | tar -xz
+cd centos-laravel-stack-3.1.03
 ./setup_full
 ```
 
