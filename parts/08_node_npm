@@ -24,10 +24,10 @@ if [ ! "$donode" = "n" ]; then
   su - $username -c "nvm install $NODEVER"
   su - $username -c "nvm use $NODEVER"
   echo "Node version:"
-  node -v
+  su - $username -c "node -v"
   echo "Npm version:"
-  npm -v
-  
+  su - $username -c "npm -v"
+
   logline "08.03 yarn"
   su - $username -c "npm install --global yarn"
   #logline "08.02 gulp"

@@ -24,10 +24,12 @@ echo "FULL setup ready"
 echo "##########################################################"
 echo "Need to reboot to check if everything comes up as expected."
 echo "Then login as $username, not as root! Press a key to reboot"
-myip=`curl -s ifconfig.me`
+myip=`curl -4 -s ifconfig.me`
 echo "after rebooting you could try http://$myip "
 read
-reboot
+# reboot
+shutdown -r now
+
 
 
 
