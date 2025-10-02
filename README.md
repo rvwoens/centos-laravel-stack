@@ -6,7 +6,7 @@
 
 ## Installs a fresh server with
 [![Centos version](https://img.shields.io/badge/centos-8%209%20stream-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![PHP version](https://img.shields.io/badge/PHP-8.0%208.1%208.2-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![PHP version](https://img.shields.io/badge/PHP-8.0%208.1%208.2%208.3-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![NGINX version](https://img.shields.io/badge/Nginx-1.20.1-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Node version](https://img.shields.io/badge/Node-16-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Redis version](https://img.shields.io/badge/Redis-6.2-blue)](https://github.com/rvwoens/centos-laravel-stack)
