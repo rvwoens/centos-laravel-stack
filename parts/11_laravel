@@ -18,13 +18,14 @@ if [ ! "$dolaravelwebsite" == "n" ]; then
   composer create-project laravel/laravel laravel --no-interaction
   sudo chown $username:nginx -R laravel
   cd /var/www/laravel
+  echo "Run composer install"
   composer install
 
   echo -n "Enter your mysql (mariadb) root password =>" && read mysqlpwd
   mysql -u root -p$mysqlpwd -e "CREATE DATABASE laravel;"
 
   # EOF quoted: expand bash vars
-  cat <<-'EOF' >.env
+  cat <<-EOF >.env
 	APP_NAME=Laravel
 	APP_ENV=local
 	APP_KEY=
@@ -42,6 +43,7 @@ if [ ! "$dolaravelwebsite" == "n" ]; then
 	DB_PASSWORD=$mysqlpwd
 EOF
 	php artisan key:generate
+	echo "Now run artisan Migrate"
 	php artisan migrate
     chmod -R a+w storage
 
