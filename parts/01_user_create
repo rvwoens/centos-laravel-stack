@@ -31,6 +31,8 @@ su $username <<-'EOF'
 	# lets make a ~/bin and add it to the path
 	mkdir ~/bin
         echo "export PATH=\$PATH:~/bin" >> ~/.bashrc
+	echo ". ~/bin/z.sh" >> ~/.bashrc
+	echo "alias a=artisan" >> ~/.bashrc
 
         # lets make a ~/crontab
         mkdir ~/crontab

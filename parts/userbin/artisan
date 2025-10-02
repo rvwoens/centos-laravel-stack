@@ -9,4 +9,15 @@ if [ ! -f artisan ]; then
 	fi
 	exit
 fi
+if [ ! -f artisan ]; then
+	if [ -d current ]; then
+		echo "Lets CD to current first.. "
+		cd current
+		echo "Now artisan $@"
+		php artisan $@
+	else
+		echo "No file artisan found. cd current? "
+	fi
+	exit
+fi
 php artisan $@
