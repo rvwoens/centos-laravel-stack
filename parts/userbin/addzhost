@@ -6,7 +6,7 @@ if [ -z "$2" ]; then
  	echo "1) creates /var/www/domain"
  	echo "2) creates vhost nginx to domain and *.domain (like www.asd.nl)"
  	echo "3) creates puller to pull from git repo <pull-repo>"
-	echo "4) checks out <initial-tag> as first release or MASTER as default"
+	echo "4) checks out <initial-tag> as first release or asks you"
 	echo "USE FULL DOMAIN like xxyy.nl or asd.com"
 	echo "USE remote repo ssh clone address - make sure this server id_rsa.pub has access to an account that can read the repo"
 	echo "OR USE https://github.com/user/repo.git - will do a simple clone"
@@ -17,7 +17,8 @@ fi
 HOME=`readlink -f ~`
 
 if [ -z $3 ]; then
-	TAG=master
+	echo "initial tag (use main or master if there is no tag yet)"
+	read TAG
 else
 	TAG=$3
 fi
