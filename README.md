@@ -13,15 +13,16 @@
 [![Laravel version](https://img.shields.io/badge/Laravel-v5%20v6%20v7%20v8%20v9%20v10-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS
 * Nginx and virtual hosts
-* Php fpm & cli, composer
+* Php fpm & cli, composer, common php packages.
 * Nvm, Node, npm, yarn
 * Redis
-* Security and Hardening
-* Add (multiple) laravel projects (any laravel version) with Zero-Downtime deployment
+* Security and Hardening (fail2ban, firewall, strict sshd)
+* Add (multiple) Laravel projects (any Laravel version) with Zero-Downtime deployment
 
 The scripts are all bash, and kept very simple so you can tweak them to your needs if you want to.
 
-Very easy project deployment by calling the project's  ```puller``` script
+Very easy project deployment by calling the project's  server ```puller``` script via a local ```pusher``` script
+Multiple servers per project support (production, staging..) through a local ```pusher.conf``` configuration
 
 ## how to install
 

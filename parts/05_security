@@ -9,7 +9,7 @@ logline "05.01 ssh security"
 sshtemp=`mktemp`
 cat /etc/ssh/sshd_config | sed -e "s/PasswordAuthentication yes/PasswordAuthentication no/" >$sshtemp
 
-cat <<-'EOF' >>$sshtemp 
+cat <<-'EOF' >>$sshtemp
 	PermitRootLogin no
 	Protocol 2
 	UsePrivilegeSeparation yes
@@ -25,8 +25,12 @@ cat <<-'EOF' >>$sshtemp
 	PrintMotd no
 	TCPKeepAlive yes
 	PasswordAuthentication no
+	# allow older ssh clients to connect (dbeaver)
+  PubkeyAcceptedKeyTypes +ssh-rsa
 EOF
 mv -f $sshtemp /etc/ssh/sshd_config
+# only readable by root
+chmod 0600 /etc/ssh/sshd_config
 systemctl restart sshd.service
 
 

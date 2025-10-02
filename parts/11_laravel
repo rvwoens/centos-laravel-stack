@@ -14,7 +14,8 @@ logline "11.02 create a simple (github/laravel/laravel) site on http://$myip usi
 echo -n "A default laravel webite (https://github.com/laravel/laravel) is optional. Install default webite @ http://$myip [Y/n]=>" && read dolaravelwebsite
 if [ ! "$dolaravelwebsite" == "n" ]; then
   # use simple git clone for demo website
-  su - $username addzhost $myip https://github.com/laravel/laravel.git
+  # use laravel 8.6.12 as this runs with php7.4-8.1
+  su - $username addzhost $myip https://github.com/laravel/laravel.git v8.6.12
 fi
 
 echo "!!! Use addzhost to add projects (located in ~/bin of $username)"
