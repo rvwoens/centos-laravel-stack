@@ -49,13 +49,13 @@ setsebool -P httpd_can_network_connect 1
 logline "10.06 create a default landing page for the machine"
 cp -R ${BASH_SOURCE%/*}/assets/homepage/* /usr/share/nginx/html
 
-logline "10.07 start services"
-service php$PHPVER-php-fpm restart
-service nginx restart
+# for some readon we need a reboot first
+#logline "10.07 start services"
+#service php$PHPVER-php-fpm restart
+#service nginx restart
+
 # create a symlink 
 ln -s /var/opt/remi/php$PHPVER/log/php-fpm /var/log/php-fpm
-
-
 
 logline "10.99 nginx END"
 

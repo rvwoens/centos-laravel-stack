@@ -9,13 +9,65 @@ logline "11.01 create /var/www for laravel apps using Zero Downtime Deploy"
 mkdir -p /var/www
 myip=`curl -s ifconfig.me`
 
-logline "11.02 create a simple (github/laravel/laravel) site on http://$myip using addzhost?"
+#logline "11.02 create a simple (github/laravel/laravel) site on http://$myip using addzhost?"
 
-echo -n "A default laravel webite (https://github.com/laravel/laravel) is optional. Install default webite @ http://$myip [Y/n]=>" && read dolaravelwebsite
+echo -n "A default laravel webite is optional. Install default webite @ http://$myip [Y/n]=>" && read dolaravelwebsite
 if [ ! "$dolaravelwebsite" == "n" ]; then
   # use simple git clone for demo website
-  # use laravel 8.6.12 as this runs with php7.4-8.1
-  su - $username addzhost $myip https://github.com/laravel/laravel.git v8.6.12
+  cd /var/www
+  git clone https://github.com/laravel/laravel.git
+  sudo chown $username:nginx -R laravel
+  cd /var/www/laravel
+  chmod -R a+w storage
+  echo -n "Enter your mysql (mariadb) root password =>" && read mysqlpwd
+  # EOF quoted: expand bash vars
+  cat <<-'EOF' >>.env
+	APP_NAME=Laravel
+	APP_ENV=local
+	APP_KEY=base64:dzn3R7Cu/RVPplf7O9roOKPYSau3vqpO8RjssFfYdHQ=
+	APP_URL=http://localhost
+
+	LOG_CHANNEL=stack
+	LOG_DEPRECATIONS_CHANNEL=null
+	LOG_LEVEL=debug
+
+	DB_CONNECTION=mysql
+	DB_HOST=127.0.0.1
+	DB_PORT=3306
+	DB_DATABASE=laravel
+	DB_USERNAME=root
+	DB_PASSWORD=$mysqlpwd
+EOF
+	composer install
+	php artisan migrate
+	sudo cat <<-EOF >>/etc/nginx/sites-available/01-laravel.conf
+		server {
+		listen   80;
+		server_name _;
+		root /var/www/laravel/public;
+		index  index.html index.htm index.php;
+
+		location / {
+				try_files $uri $uri/ /index.php?$query_string;
+		}
+
+		location ~ \.php$ {
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_index  index.php;
+			try_files $uri /index.php =404;
+			fastcgi_split_path_info ^(.+\.php)(/.+)$;
+			# note realpathroot instead of documentroot makes symbolic link resolved by nginx and solves php realpath issues
+			fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+			fastcgi_buffers 256 128k;
+			fastcgi_connect_timeout 300s;
+			fastcgi_send_timeout 300s;
+			fastcgi_read_timeout 300s;
+			include fastcgi_params;
+		}
+EOF
+	sudo ln -s /etc/nginx/sites-available/01-laravel.conf /etc/nginx/sites-enabled
+	sudo service nginx restart
+	
 fi
 
 echo "!!! Use addzhost to add projects (located in ~/bin of $username)"

@@ -1,5 +1,5 @@
 # simple Centos Laravel stack for Zero-Downtime deployment
-[![GitHub Release](https://img.shields.io/badge/release-3.1.03-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![GitHub Release](https://img.shields.io/badge/release-3.1.04-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Last commit](https://img.shields.io/github/last-commit/rvwoens/centos-laravel-stack)](https://github.com/rvwoens/centos-laravel-stack)
 [![License](https://poser.pugx.org/cosninix/cos/license)](https://github.com/rvwoens/centos-laravel-stack)
 [![Actions Status](https://github.com/rvwoens/centos-laravel-stack/workflows/CI/badge.svg)](https://github.com/rvwoens/centos-laravel-stack/actions)
@@ -8,7 +8,7 @@
 [![Centos version](https://img.shields.io/badge/centos-8%209%20stream-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![PHP version](https://img.shields.io/badge/PHP-8.0%208.1%208.2%208.3-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![NGINX version](https://img.shields.io/badge/Nginx-1.20.1-blue)](https://github.com/rvwoens/centos-laravel-stack)
-[![Node version](https://img.shields.io/badge/Node-16-blue)](https://github.com/rvwoens/centos-laravel-stack)
+[![Node version](https://img.shields.io/badge/Node-24-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Redis version](https://img.shields.io/badge/Redis-6.2-blue)](https://github.com/rvwoens/centos-laravel-stack)
 [![Laravel version](https://img.shields.io/badge/Laravel-v5%20v6%20v7%20v8%20v9%20v10-blue)](https://github.com/rvwoens/centos-laravel-stack)
 * CentOS
@@ -31,8 +31,8 @@ Multiple servers per project support (production, staging..) through a local ```
 
 ```bash
 yum -y install tar
-curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.1.03.tar.gz | tar -xz
-cd centos-laravel-stack-3.1.03
+curl -s -L https://github.com/rvwoens/centos-laravel-stack/archive/v3.1.04.tar.gz | tar -xz
+cd centos-laravel-stack-3.1.04
 ./setup_full
 ```
 

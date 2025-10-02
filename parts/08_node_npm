@@ -14,7 +14,7 @@ if [ ! "$donode" = "n" ]; then
   # new method: yum module
   # yum module install nodejs -y
   # NOTE NOTE: nvm is best installed as user not as root package!!
-  su - $username -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash"
+  su - $username -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
   # source ~/.bash_profile
 
   # logline "08.02 install node and npm"
@@ -23,7 +23,11 @@ if [ ! "$donode" = "n" ]; then
 
   su - $username -c "nvm install $NODEVER"
   su - $username -c "nvm use $NODEVER"
-
+  echo "Node version:"
+  node -v
+  echo "Npm version:"
+  npm -v
+  
   logline "08.03 yarn"
   su - $username -c "npm install --global yarn"
   #logline "08.02 gulp"
